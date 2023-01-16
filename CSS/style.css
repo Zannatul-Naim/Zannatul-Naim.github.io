@@ -34,6 +34,10 @@ table {
     width: 30%;
 }
 
+td {
+    padding-left: 8px;
+}
+
 h2 {
     color: darkcyan;
 }
