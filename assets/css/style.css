@@ -88,6 +88,12 @@ img {
     }
 }
 
+/* Home explore */
+.home-explore {
+    margin: 10px;
+    align-items: center;
+}
+
 
 /* button */
 
@@ -95,6 +101,7 @@ img {
     padding: 10px 25px;
     font-weight: 700;
 }
+
 .btn-brand {
     background-color: var(--color-brand);
     border-color: var(--color-brand);
@@ -108,6 +115,11 @@ img {
 }
 
 .link-custom {
+    font-weight: 700;
+    position: relative;
+}
+
+address {
     font-weight: 700;
     position: relative;
 }
@@ -133,6 +145,8 @@ img {
 }
 .card-custom .card-custom-image img {
     transition: all 0.4s ease;
+    height: 300px;
+    width: 300px;
 }
 
 .card-custom:hover .card-custom-image img {
@@ -174,3 +188,10 @@ img {
     border-radius: 100px;
     font-size: 24px;
 }
+
+/* @media(min-width:580px) {
+    .card-custom .card-custom-image img {
+        width: 450px;
+        height: 450px;
+    }
+} */
