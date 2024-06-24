@@ -4,39 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Me</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- custom CSS -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>About Me</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
+    <header class="bg-dark text-white text-center py-3">
+        <div class="container">
+            <h1>About Me</h1>
+            <nav class="navbar navbar-expand-md navbar-dark">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
     </header>
-    <main>
-        <h2>Resume</h2>
-        <strong>Name:</strong> <i>Zannatul Naim</i> | <strong>E-mail: </strong><i></i>zannatulnaim09@gmail.com</i> | <strong>Phone: </strong><i></i>+8801571****</i>
+    <main class="container my-4">
+        <section>
+            <h2 class="text-center mb-4">Resume</h2>
+            <p><strong>Name:</strong> <i>Zannatul Naim</i> | <strong>E-mail:</strong> <i>zannatulnaim09@gmail.com</i> | <strong>Phone:</strong> <i>+8801571****</i></p>
             <h3>Educational Details</h3>
-            <ul>
+            <ul class="list-unstyled">
                 <li><strong>Institution:</strong> University of Rajshahi</li>
                 <li><strong>Degree:</strong> BSc Engineering in Computer Science and Engineering</li>
                 <li><strong>Expected Graduation:</strong> 2025</li>
-                <li><strong>Relevant Courses:</strong>Programming Languages, Data Structures, Algorithms, Operating Systems, Computer Architecture, Software Engineering, Database Management, Application Development (Mobile, Web)etc.</li>
+                <li><strong>Relevant Courses:</strong> Programming Languages, Data Structures, Algorithms, Operating Systems, Computer Architecture, Software Engineering, Database Management, Application Development (Mobile, Web), etc.</li>
                 <li><strong>Projects:</strong>
-                    <ul>
+                    <ul class="ml-3">
                         <li><strong>Project 1:</strong> Tour Guide Android app project. <a href="https://github.com/Zannatul-Naim/tour-guide-app">Github Link</a></li>
-                        <!-- <li><strong>Project 2:</strong> Description of the project.</li> -->
                     </ul>
                 </li>
             </ul>
         </section>
     </main>
-    <footer>
+    <footer class="bg-dark text-white text-center py-3">
         <p>&copy; 2024 My Blog</p>
     </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
