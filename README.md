@@ -1,1 +1,1 @@
-Github Page: [https://zannatul-naim.github.io]
+Github page link: https://zannatul-naim.github.io
