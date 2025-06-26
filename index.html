@@ -3,42 +3,674 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Blog</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- Bootstrap CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Zannatul Naim - Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="./styles.css">
+    <script defer src="./js/include.js"></script>
 </head>
+
 <body>
-    <header class="bg-dark text-white text-center py-3">
+    <div data-include="components/navbar.html"> </div> 
+    <!-- Navigation ! --> 
+    <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <h1>Welcome to My Blog</h1>
-            <nav class="navbar navbar-expand-md navbar-dark">
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-            </nav>
+            <a class="navbar-brand" href="#home">Zannatul Naim</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#experience">Experience</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#blog">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </header>
-    <main>
-        
-        <br> <br>
-        <h2>Recent Posts</h2>
-        <ul>
-            <!-- <li><a href="post2.html">Blog Post 2</a></li> -->
-            <li><a href="cse_undergrad_stud_time_spend.html">How Should CSE Undergraduate Students Spend Their Time in a Valuable Way?</a></li>
-        </ul>
-    </main>
-    <footer class="bg-dark text-white text-center py-3">
-        <p>&copy; 2025 Zannatul-Naim</p>
+    </nav>
+
+
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-4 text-center">
+                    <img src="https://art.pixilart.com/thumb/bbe3213442d2174.png" alt="Profile Picture" height="50%" width="50%" class="profile-img">
+                    <!-- <img src="https://avatars.githubusercontent.com/u/97250227?v=4" alt="Profile Picture" class="profile-img"> -->
+
+                </div>
+                <div class="col-md-8">
+                    <h1 class="display-4 fw-bold mb-3">Zannatul Naim</h1>
+                    <h3 class="mb-4">Computer Science Student & <span class="typing-animation">Developer</span></h3>
+                    <p class="lead mb-4">Passionate about technology, innovation, and creating solutions that make a difference. Currently pursuing my Bachelor's in Computer Science with interests in web development, AI, and software engineering.</p>
+                    <div class="mb-4">
+                        <a href="#projects" class="btn btn-primary btn-lg me-3">View My Work</a>
+                        <a href="#contact" class="btn btn-outline-light btn-lg">Get In Touch</a>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/zannatulnaim09/"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/Zannatul-Naim"><i class="fab fa-github"></i></a>
+                        <!-- <a href="#"><i class="fab fa-twitter"></i></a> -->
+                        <a href="https://bn.quora.com/profile/Zannatul-Naim-15"><i class="fab fa-quora"></i></a>
+                        <a href="https://stackoverflow.com/users/17947102/naim"><i class="fab fa-stack-overflow"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center">About Me</h2>
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="fade-in">
+                        <h4 class="mb-4">Hello! I'm Naim, a passionate Computer Science student.</h4>
+                        <p class="mb-3">I'm currently in final year at University of Rajshahi, majoring in Computer Science with a focus on software development and emerging technologies. My journey in tech started with curiosity about how things work, and it has evolved into a deep passion for creating innovative solutions.</p>
+                        
+                        <p class="mb-3">When I'm not coding, you can find me exploring new technologies, writing technical blog posts, or contributing to open-source projects. I believe in continuous learning and sharing knowledge with the community.</p>
+                        
+                        <p class="mb-4">I'm actively seeking internship opportunities and looking forward to contributing to meaningful projects that can make a positive impact.</p>
+                        
+                        <a href="./resume.pdf" class="btn btn-primary me-3">Download Resume</a>
+                        <a href="#contact" class="btn btn-outline-primary">Let's Connect</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-sm-6 mb-4">
+                            <div class="card text-center p-3">
+                                <i class="fas fa-graduation-cap text-primary mb-2" style="font-size: 2rem;"></i>
+                                <h5>Education</h5>
+                                <p class="text-muted">Final Year at University or Rajshahi<br>Computer Science Major</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 mb-4">
+                            <div class="card text-center p-3">
+                                <i class="fas fa-code text-primary mb-2" style="font-size: 2rem;"></i>
+                                <h5>Projects</h5>
+                                <p class="text-muted">5+ Personal & Academic<br>Projects Completed</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 mb-4">
+                            <div class="card text-center p-3">
+                                <i class="fas fa-award text-primary mb-2" style="font-size: 2rem;"></i>
+                                <h5>CGPA</h5>
+                                <p class="text-muted">3.6/4.0<br></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 mb-4">
+                            <div class="card text-center p-3">
+                                <i class="fas fa-blog text-primary mb-2" style="font-size: 2rem;"></i>
+                                <h5>Blog Posts</h5>
+                                <p class="text-muted">5+ Technical Articles<br>Published</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title text-center">Skills & Technologies</h2>
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="skill-item fade-in">
+                        <i class="fab fa-js-square skill-icon"></i>
+                        <h5>Frontend Development</h5>
+                        <p>HTML5, CSS3, Bootstrap, Tailwind CSS, JavaScript, React, Vue.js</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="skill-item fade-in">
+                        <i class="fas fa-server skill-icon"></i>
+                        <h5>Backend Development</h5>
+                        <p>Java, Spring-Core, Spring-Framework, Express.js, FastAPI, RESTful APIs, Node.js, Python</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="skill-item fade-in">
+                        <i class="fas fa-database skill-icon"></i>
+                        <h5>Database & Cloud</h5>
+                        <p>MongoDB, PostgreSQL, MySQL, Firebase, Docker</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="skill-item fade-in">
+                        <i class="fas fa-tools skill-icon"></i>
+                        <h5>Tools & Others</h5>
+                        <p>Git, GitHub, VS Code, Figma, Postman, Linux, Agile</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center">Featured Projects</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="project-card fade-in">
+                        <div class="project-image">
+                            <i class="fas fa-map-marked-alt fa-2x text-success"></i>
+                        </div>
+                        <div class="p-4">
+                            <h5 class="mb-3">Tour-Guide App (Kushtia)</h5>
+                            <p class="text-muted mb-3">CSE 3rd year Course work on Mobile Application Development using Flutter.</p>
+                            <div class="mb-3">
+                                <span class="badge bg-primary me-1">Flutter</span>
+                                <span class="badge bg-primary me-1">Dart</span>
+                                <span class="badge bg-primary me-1">Firebase</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <a href="#" class="btn btn-outline-primary btn-sm">Live Demo</a>
+                                <a href="https://github.com/Zannatul-Naim/tour-guide-app" class="btn btn-outline-secondary btn-sm">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="project-card fade-in">
+                        <div class="project-image">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="p-4">
+                            <h5 class="mb-3">*Task Management App (Pending...)</h5>
+                            <p class="text-muted mb-3">Collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.</p>
+                            <div class="mb-3">
+                                <span class="badge bg-primary me-1">Vue.js</span>
+                                <span class="badge bg-primary me-1">Firebase</span>
+                                <span class="badge bg-primary me-1">Socket.io</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <a href="#" class="btn btn-outline-primary btn-sm">Live Demo</a>
+                                <a href="#" class="btn btn-outline-secondary btn-sm">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="project-card fade-in">
+                        <div class="project-image">
+                            <i class="fas fa-id-badge"></i>
+                        </div>
+                        <div class="p-4">
+                            <h5 class="mb-3">Employe Info System-CRUD</h5>
+                            <p class="text-muted mb-3">Built employee-info-system-crud, a Laravel-based web application implementing full CRUD operations to manage employee information efficiently.</p>
+                            <div class="mb-3">
+                                <span class="badge bg-primary me-1">PHP</span>
+                                <span class="badge bg-primary me-1">Laravel</span>
+                                <span class="badge bg-primary me-1">CRUD</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <a href="#" class="btn btn-outline-primary btn-sm">Live Demo</a>
+                                <a href="https://github.com/Zannatul-Naim/laravel-employee-info-crud" class="btn btn-outline-secondary btn-sm">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="#" class="btn btn-primary btn-lg">View All Projects</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title text-center">Experience & Education</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <h4 class="mb-4">Work Experience</h4>
+                    <!-- <div class="experience-item fade-in">
+                        <h5 class="mb-2">Frontend Developer Intern</h5>
+                        <p class="text-muted mb-2">TechStart Inc. | Summer 2024</p>
+                        <p>Developed responsive web applications using React and collaborated with the design team to implement user-friendly interfaces. Improved website performance by 30% through code optimization.</p>
+                    </div> -->
+                    <div class="experience-item fade-in">
+                        <h5 class="mb-2">Research Student</h5>
+                        <p class="text-muted mb-2">University Human Computer Interaction Lab | Dec 2024 - Present</p>
+                        <p>CSE final year Thesis/Project coursework on Brain Computer Interfaces (BCI), implementing data preprocessing pipelines, and contributing to academic publications.</p>
+                    </div>
+                    <div class="experience-item fade-in">
+                        <h5 class="mb-2">Freelance Web Developer</h5>
+                        <p class="text-muted mb-2">Self-Employed | 2023 - Present</p>
+                        <p>Developed custom websites for small purposes.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h4 class="mb-4">Education & Achievements</h4>
+                    <div class="experience-item fade-in">
+                        <h5 class="mb-2">Bachelor of Science in Computer Science & Engineering</h5>
+                        <p class="text-muted mb-2">University University of Rajshahi | 2020 - 2025 (Expected)</p>
+                        <p>Current GPA: 3.6/4.0 Relevant coursework: Data Structures, Algorithms, Database Systems, Web Development, Signal Processing, Image Processing, AI, ML, DL</p>
+                    </div>
+                    <!-- <div class="experience-item fade-in">
+                        <h5 class="mb-2">Hackathon Winner</h5>
+                        <p class="text-muted mb-2">University Tech Fest 2024</p>
+                        <p>First place in the web development category for creating an innovative social learning platform within 48 hours.</p>
+                    </div> -->
+                    <div class="experience-item fade-in">
+                        <h5 class="mb-2">Certifications</h5>
+                        <p class="text-muted mb-2">Various Online Platforms</p>
+                        <p>Coursera, Linked-Learning, HackerRank.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center">Latest Blog Posts</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="blog-card fade-in">
+                        <div class="p-4">
+                            <div class="blog-meta mb-2">
+                                <i class="fas fa-calendar-alt me-2"></i>May 24, 2025
+                            </div>
+                            <h5 class="mb-3">Understanding Expandable AI</h5>
+                            <p class="text-muted mb-3">Explore the concept of Expandable AI — a scalable and modular approach to building intelligent systems that evolve over time.</p>
+                            <div class="mb-3">
+                                <span class="blog-tag"><b>AI</b></span>
+                                <span class="blog-tag"><b>Scalability</b></span>
+                                <span class="blog-tag"><b>Tech Trends</b></span>
+                            </div>
+                            <a href="./blog-posts/understanding-expandable-ai.html" class="btn btn-outline-primary btn-sm">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="blog-card fade-in">
+                        <div class="p-4">
+                            <div class="blog-meta mb-2">
+                                <i class="fas fa-calendar-alt me-2"></i>June 25, 2025
+                            </div>
+                            <h5 class="mb-3">Understanding Explainable AI: Making AI Transparent</h5>
+                            <p class="text-muted mb-3">AI models, especially deep learning systems, often operate as "black boxes," where the internal workings are opaque. XAI aims to address this by providing ...</p>
+                            <div class="mb-3">
+                                <span class="blog-tag"><b>AI</b></span>
+                                <span class="blog-tag"><b>DL</b></span>
+                                <span class="blog-tag"><b>ML</b></span>
+                            </div>
+                            <a href="./blog-posts/explainable-ai.html" class="btn btn-outline-primary btn-sm">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="blog-card fade-in">
+                        <div class="p-4">
+                            <div class="blog-meta mb-2">
+                                <i class="fas fa-calendar-alt me-2"></i>June 26, 2025
+                            </div>
+                            <h5 class="mb-3">Drawing the Flag of Bangladesh with C++ & OpenGL</h5>
+                            <p class="text-muted mb-3">A step-by-step guide to rendering a national symbol with code. ...</p>
+                            <div class="mb-3">
+                                <span class="blog-tag"><b>C++</b></span>
+                                <span class="blog-tag"><b>OpenGL</b></span>
+                                <span class="blog-tag"><b>Graphics</b></span>
+                            </div>
+                            <a href="./blog-posts/bd-flag-opengl.html" class="btn btn-outline-primary btn-sm">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="./blog-page.html" class="btn btn-primary btn-lg">View All Posts</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section py-5">
+        <div class="container">
+            <h2 class="section-title text-center">Let's Connect</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="contact-card">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="mb-4">Get In Touch</h4>
+                                <div class="contact-item">
+                                    <i class="fas fa-envelope"></i>
+                                    <div>
+                                        <strong>Email</strong><br>
+                                        zannatulnaim09@gmail.com
+                                    </div>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="fas fa-phone"></i>
+                                    <div>
+                                        <strong>Phone</strong><br>
+                                        +8801571******
+                                    </div>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <div>
+                                        <strong>Location</strong><br>
+                                        Rajshahi, Bangladesh
+                                    </div>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="fas fa-calendar-check"></i>
+                                    <div>
+                                        <strong>Availability</strong><br>
+                                        Open for internships & freelance projects
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="mb-4">Send a Message</h4>
+                                <form id="contactForm">
+                                    <div class="mb-3">
+                                        <input type="text" class="form-control" placeholder="Your Name" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <input type="email" class="form-control" placeholder="Your Email" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <input type="text" class="form-control" placeholder="Subject">
+                                    </div>
+                                    <div class="mb-3">
+                                        <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100">Send Message</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2025 Zannatul Naim. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/zannatulnaim09/"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.github.com/Zannatul-Naim"><i class="fab fa-github"></i></a>
+                        <a href="https://bn.quora.com/profile/Zannatul-Naim-15"><i class="fab fa-quora"></i></a>
+                        <a href="https://stackoverflow.com/users/17947102/naim"><i class="fab fa-stack-overflow"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </footer>
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                // e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Back to top button functionality
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 100) {
+                backToTopButton.style.display = 'block';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Navbar active link highlighting
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Contact form handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simple form validation
+            const inputs = this.querySelectorAll('input[required], textarea[required]');
+            let isValid = true;
+            
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    isValid = false;
+                    input.classList.add('is-invalid');
+                } else {
+                    input.classList.remove('is-invalid');
+                }
+            });
+            
+            if (isValid) {
+                // Simulate form submission
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                
+                submitBtn.textContent = 'Sending...';
+                submitBtn.disabled = true;
+                
+                setTimeout(() => {
+                    alert('Thank you for your message! I\'ll get back to you soon.');
+                    this.reset();
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }, 1500);
+            }
+        });
+
+        // Typing animation
+        const typingTexts = ['Developer', 'Problem Solver', 'Innovator'];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingElement = document.querySelector('.typing-animation');
+
+        function typeAnimation() {
+            const currentText = typingTexts[textIndex];
+            
+            if (isDeleting) {
+                typingElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingElement.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+            
+            if (!isDeleting && charIndex === currentText.length) {
+                setTimeout(() => isDeleting = true, 1500);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % typingTexts.length;
+            }
+            
+            const speed = isDeleting ? 50 : 100;
+            setTimeout(typeAnimation, speed);
+        }
+
+        // Start typing animation
+        setTimeout(typeAnimation, 1000);
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(item => {
+            observer.observe(item);
+        });
+
+        // Smooth reveal animation for cards
+        const cardObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.project-card, .blog-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            cardObserver.observe(card);
+        });
+
+        // Add hover effects for project cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.querySelector('.project-image').style.transform = 'scale(1.05)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.querySelector('.project-image').style.transform = 'scale(1)';
+            });
+        });
+
+        // Navbar background change on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.backdropFilter = 'blur(10px)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+
+        // Preloader (optional)
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
+
+        // Add click tracking for project buttons
+        document.querySelectorAll('.project-card .btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                // e.preventDefault();
+                const projectName = this.closest('.project-card').querySelector('h5').textContent;
+                console.log(`Clicked ${this.textContent} for project: ${projectName}`);
+                // Here you would typically send analytics data or handle the actual link
+            });
+        });
+
+        // Blog post click tracking
+        document.querySelectorAll('.blog-card .btn').forEach(btn => {
+            // btn.addEventListener('click', function(e) {
+            //     // e.preventDefault();
+            //     // const blogTitle = this.closest('.blog-card').querySelector('h5').textContent;
+            //     // console.log(`Clicked to read: ${blogTitle}`);
+            //     // Here you would typically navigate to the full blog post
+            // });
+        });
+
+        // Add copy email functionality
+        document.querySelector('.contact-item i.fa-envelope').closest('.contact-item').addEventListener('click', function() {
+            const email = 'alex.johnson@email.com';
+            navigator.clipboard.writeText(email).then(() => {
+                // Show temporary tooltip
+                const tooltip = document.createElement('div');
+                tooltip.textContent = 'Email copied!';
+                tooltip.style.cssText = `
+                    position: absolute;
+                    background: var(--primary-color);
+                    color: white;
+                    padding: 8px 12px;
+                    border-radius: 4px;
+                    font-size: 12px;
+                    z-index: 1000;
+                    pointer-events: none;
+                `;
+                
+                this.appendChild(tooltip);
+                setTimeout(() => {
+                    tooltip.remove();
+                }, 2000);
+            });
+        });
+    </script>
+
+
 </body>
 </html>
