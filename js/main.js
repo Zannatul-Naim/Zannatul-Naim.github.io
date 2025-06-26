@@ -5,7 +5,7 @@ async function loadComponent(id, file) {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    loadComponent('navbar', 'navbar.html');
+    // loadComponent('navbar', 'navbar.html');
     // loadComponent('hero', 'hero.html');
     // loadComponent('about', 'about.html');
     // loadComponent('skills', 'skills.html');
