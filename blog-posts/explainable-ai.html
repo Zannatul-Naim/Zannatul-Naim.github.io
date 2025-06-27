@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Understanding Explainable AI: Making AI Transparent</title>
+    <title>Understanding Explainable AI: A Beginner's Guide to Transparent AI</title>
+    <!-- MathJax for rendering LaTeX equations -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -18,6 +21,7 @@
             color: white;
             text-align: center;
             padding: 2em 0;
+            /* margin: 5em; */
         }
         header h1 {
             margin: 0;
@@ -79,78 +83,126 @@
                 padding: 0 10px;
             }
         }
+
+        nav {
+            background: linear-gradient(90deg, #2c3e50, #3498db);
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: auto;
+            z-index: 1000;
+            padding: 0.5em 1em;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0.5em;
+            display: flex;
+            justify-content: flex-end;
+        }
+        nav ul li {
+            margin: 0 1em;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover {
+            color: #f1c40f;
+        }
+        @media (max-width: 600px) {
+            nav ul {
+                flex-direction: column;
+                align-items: flex-end;
+            }
+            nav ul li {
+                margin: 0.5em 0;
+            }
+        }
     </style>
 </head>
 <body>
+
+    <nav>
+        <ul>
+            <li><a href="./../../index.html">Home</a></li>
+            <li><a href="../blog-page.html">Blogs</a></li>
+            <!-- <li><a href="yolo-v1-blog.html">YOLOv1</a></li>
+            <li><a href="cnn-blog.html">CNN</a></li> -->
+        </ul>
+    </nav>
+
     <header>
-        <h1>Understanding Explainable AI: Making AI Transparent</h1>
+        <h1>Understanding Explainable AI: A Beginner's Guide to Transparent AI</h1>
     </header>
     <div class="container">
         <div class="section">
-            <h2>Introduction to Explainable AI</h2>
-            <p>Explainable AI (XAI) refers to methods and techniques in artificial intelligence that make the decisions and predictions of AI models transparent and understandable to humans. As AI systems become more prevalent in critical domains like healthcare, finance, and law, understanding *why* an AI makes a particular decision is crucial for trust and accountability.</p>
+            <h2>What is Explainable AI?</h2>
+            <p>Explainable AI (XAI) is a set of techniques that help humans understand why an AI model makes certain decisions or predictions. Imagine an AI as a super-smart assistant that can diagnose diseases or approve loans. XAI is like asking that assistant, "Why did you make that choice?" and getting a clear answer. This is crucial in fields like medicine, finance, and law, where trust and clarity are essential.</p>
             <div class="image-container">
-                <img src="https://via.placeholder.com/600x300.png?text=AI+Decision+Process" alt="AI Decision Process">
-                <p><em>Figure 1: Visualizing the decision-making process of an AI model.</em></p>
+                <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300&q=80" alt="AI Decision Visualization">
+                <p><em>Figure 1: Visualizing how an AI model makes decisions.</em></p>
             </div>
         </div>
 
         <div class="section">
-            <h2>Why Explainable AI Matters</h2>
-            <p>AI models, especially deep learning systems, often operate as "black boxes," where the internal workings are opaque. XAI aims to address this by providing insights into the model's reasoning. For example, in a medical diagnosis system, XAI can highlight which features (e.g., patient symptoms or test results) contributed most to a diagnosis, fostering trust among doctors and patients.</p>
+            <h2>Why Does Explainable AI Matter?</h2>
+            <p>Many AI models, like deep neural networks, are like "black boxes" — their inner workings are hard to understand. XAI makes these models transparent by explaining their decisions. For example, if an AI diagnoses a patient with a disease, XAI can show which symptoms or test results influenced the diagnosis, helping doctors trust and verify the AI.</p>
             <p>Key benefits of XAI include:</p>
             <ul>
-                <li><strong>Trust:</strong> Users are more likely to trust AI systems when they understand the reasoning behind decisions.</li>
-                <li><strong>Debugging:</strong> Developers can identify and fix biases or errors in models.</li>
-                <li><strong>Compliance:</strong> Regulations like GDPR require explanations for automated decisions.</li>
+                <li><strong>Trust:</strong> People trust AI more when they know how it works.</li>
+                <li><strong>Fairness:</strong> XAI helps spot and fix biases in AI models.</li>
+                <li><strong>Rules Compliance:</strong> Laws like GDPR require explanations for automated decisions.</li>
             </ul>
-            <div class="image-container">
-                <img src="https://via.placeholder.com/600x300.png?text=Trust+in+AI" alt="Trust in AI">
-                <p><em>Figure 2: Building trust through explainability in AI systems.</em></p>
-            </div>
+            <!-- <div class="image-container">
+                <img src="https://images.unsplash.com/photo-1551288049-b1f3a0c3f3e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300&q=80" alt="Trust in AI">
+                <p><em>Figure 2: Building trust through transparent AI systems.</em></p>
+            </div> -->
         </div>
 
         <div class="section">
-            <h2>Techniques in Explainable AI</h2>
-            <p>Several techniques are used to make AI models interpretable. Two popular methods are:</p>
+            <h2>Key Techniques in Explainable AI</h2>
+            <p>XAI uses several methods to make AI understandable. Here are two beginner-friendly techniques:</p>
             <h3>1. Feature Importance</h3>
-            <p>This method quantifies the contribution of each input feature to the model's prediction. For a linear regression model, the contribution of feature \( x_i \) to the output \( y \) can be expressed as:</p>
+            <p>This technique shows which parts of the input data (e.g., symptoms in a medical AI) matter most for the AI’s decision. In a simple model like linear regression, the output \( y \) depends on input features \( x_i \) with weights \( w_i \):</p>
             <div class="equation">
                 \( y = w_0 + w_1x_1 + w_2x_2 + \dots + w_nx_n \)
-                <p><em>Equation 1: Linear regression model showing weighted contributions of features.</em></p>
+                <p><em>Equation 1: Linear regression model showing how features contribute to predictions.</em></p>
             </div>
-            <p>Here, \( w_i \) represents the weight of feature \( x_i \), indicating its importance.</p>
+            <p>The weights \( w_i \) tell us how important each feature is.</p>
 
-            <h3>2. Local Interpretable Model-agnostic Explanations (LIME)</h3>
-            <p>LIME approximates a complex model locally with a simpler, interpretable model (e.g., linear regression) to explain individual predictions. For a given input, LIME perturbs the data and observes how predictions change, creating an interpretable approximation.</p>
-            <div class="image-container">
-                <img src="https://via.placeholder.com/600x300.png?text=LIME+Explanation" alt="LIME Explanation">
-                <p><em>Figure 3: LIME explaining a neural network's prediction by approximating it locally.</em></p>
-            </div>
+            <h3>2. LIME (Local Interpretable Model-agnostic Explanations)</h3>
+            <p>LIME explains individual predictions by creating a simpler model that mimics the complex AI locally. For example, if an AI says an image is a cat, LIME can highlight which parts of the image (like the ears) were most important.</p>
+            <!-- <div class="image-container">
+                <img src="https://images.unsplash.com/photo-1507146426996-ef05306b995a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300&q=80" alt="LIME Explanation">
+                <p><em>Figure 3: LIME highlighting key features in an AI prediction.</em></p>
+            </div> -->
         </div>
 
         <div class="section">
-            <h2>Mathematical Foundations of XAI</h2>
-            <p>Many XAI techniques rely on mathematical frameworks to quantify interpretability. For instance, SHAP (SHapley Additive exPlanations) uses concepts from game theory to assign importance values to features. The SHAP value for a feature \( x_i \) is computed as:</p>
+            <h2>Math Behind Explainable AI</h2>
+            <p>XAI often uses math to explain decisions. A popular method called SHAP (SHapley Additive exPlanations) assigns importance to each feature based on game theory. The SHAP value for a feature \( x_i \) is calculated as:</p>
             <div class="equation">
                 \( \phi_i = \sum_{S \subseteq N \setminus \{i\}} \frac{|S|!(|N|-|S|-1)!}{|N|!} \left[ f(S \cup \{i\}) - f(S) \right] \)
-                <p><em>Equation 2: SHAP value calculation for feature importance, where \( S \) is a subset of features, \( N \) is the set of all features, and \( f \) is the model output.</em></p>
+                <p><em>Equation 2: SHAP value for a feature, where \( S \) is a subset of features, \( N \) is all features, and \( f \) is the model’s output.</em></p>
             </div>
-            <p>This equation calculates the average marginal contribution of a feature across all possible feature combinations, providing a fair attribution of importance.</p>
+            <p>This formula measures how much each feature contributes to the AI’s prediction, making it fair and clear.</p>
         </div>
 
         <div class="section">
-            <h2>Challenges and Future Directions</h2>
-            <p>Despite its promise, XAI faces challenges, such as balancing model complexity with interpretability and ensuring explanations are user-friendly. For example, a highly accurate neural network might be harder to explain than a simpler decision tree.</p>
-            <p>Future directions in XAI include developing standardized metrics for interpretability and integrating XAI into real-time systems. As AI continues to evolve, making it transparent will remain a critical research area.</p>
-            <div class="image-container">
-                <img src="https://via.placeholder.com/600x300.png?text=Future+of+XAI" alt="Future of XAI">
-                <p><em>Figure 4: The evolving landscape of Explainable AI.</em></p>
-            </div>
+            <h2>Challenges and What’s Next for XAI</h2>
+            <p>XAI isn’t perfect. Complex AI models are harder to explain, and explanations need to be simple enough for non-experts. For example, a neural network might be accurate but tough to interpret compared to a basic decision tree.</p>
+            <p>The future of XAI includes creating standard ways to measure explainability and making explanations work in real-time apps, like self-driving cars or medical diagnostics.</p>
+            <!-- <div class="image-container">
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300&q=80" alt="Future of XAI">
+                <p><em>Figure 4: The future of Explainable AI in real-world applications.</em></p>
+            </div> -->
         </div>
     </div>
-    <footer>
-        <p>&copy; 2025 Explainable AI Blog. All rights reserved.</p>
-    </footer>
+    <!-- <footer>
+        <p>© 2025 Explainable AI Blog. All rights reserved.</p>
+    </footer> -->
 </body>
 </html>

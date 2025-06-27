@@ -105,10 +105,55 @@
             color: #6c757d;
         }
 
+        nav {
+            background: linear-gradient(90deg, #2c3e50, #3498db);
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: auto;
+            z-index: 1000;
+            padding: 0.5em 1em;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0.5em;
+            display: flex;
+            justify-content: flex-end;
+        }
+        nav ul li {
+            margin: 0 1em;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover {
+            color: #f1c40f;
+        }
+        @media (max-width: 600px) {
+            nav ul {
+                flex-direction: column;
+                align-items: flex-end;
+            }
+            nav ul li {
+                margin: 0.5em 0;
+            }
+        }
+
     </style>
 </head>
 <body>
-
+    <nav>
+        <ul>
+            <li><a href="./../../index.html">Home</a></li>
+            <li><a href="../blog-page.html">Blogs</a></li>
+            <!-- <li><a href="yolo-v1-blog.html">YOLOv1</a></li>
+            <li><a href="cnn-blog.html">CNN</a></li> -->
+        </ul>
+    </nav>
     <div class="container">
         <header>
             <h1>Drawing the Flag of Bangladesh with C++ & OpenGL</h1>
@@ -231,9 +276,9 @@ int main(int argc, char** argv) {
             <p>A window should appear displaying a perfect rendition of the Bangladeshi flag!</p>
         </main>
         
-        <footer>
+        <!-- <footer>
             <p>© 2023 Tech & Code Blog. Happy Coding!</p>
-        </footer>
+        </footer> -->
 
     </div>
 
