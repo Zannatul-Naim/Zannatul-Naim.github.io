@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Zannatul Naim</title>
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/blog.css" />
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+
+<nav class="nav">
+  <a href="index.html" class="nav__logo">
+    <span class="nav__logo-name">Zannatul Naim</span>
+    <span class="nav__logo-sub">AI Researcher</span>
+  </a>
+  <ul class="nav__links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="nav__hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav__mobile">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="research.html">Research</a>
+  <a href="skills.html">Skills</a>
+  <a href="blog.html">Blog</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- PAGE HERO -->
+<div style="padding:calc(var(--nav-h) + 5rem) 5% 4rem;max-width:1100px;margin:0 auto;position:relative;z-index:1;">
+  <p class="page-hero__eyebrow reveal">// Thoughts & Writings</p>
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;">
+    <h1 class="page-hero__title reveal" style="margin:0;">Research <em>Blog</em></h1>
+    <button id="toggleDrawer" class="btn btn--outline reveal">+ New Post</button>
+  </div>
+  <p class="page-hero__desc reveal" style="margin-top:1rem;">
+    Notes, reflections, and tutorials from the intersection of generative AI,
+    EEG research, and competitive programming.
+  </p>
+</div>
+
+<div class="divider"></div>
+
+<!-- MAIN -->
+<div style="max-width:1100px;margin:0 auto;padding:3rem 5% 8rem;position:relative;z-index:1;">
+
+  <!-- ADD POST DRAWER -->
+  <div class="post-drawer" id="addPostDrawer">
+    <div class="post-drawer__title">Publish a New Post</div>
+    <p style="font-size:0.82rem;color:var(--muted);margin-top:-0.5rem;">Posts are saved locally in your browser. They persist across refreshes on this device.</p>
+
+    <div class="form-field">
+      <label>Title *</label>
+      <input type="text" id="pTitle" placeholder="Enter your post title…" />
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+      <div class="form-field">
+        <label>Category *</label>
+        <select id="pCategory">
+          <option value="Research">Research</option>
+          <option value="GAN">GAN</option>
+          <option value="Deep Learning">Deep Learning</option>
+          <option value="Tutorial">Tutorial</option>
+          <option value="Reflections">Reflections</option>
+          <option value="Math">Math</option>
+          <option value="BCI">BCI / EEG</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Excerpt * <span style="color:var(--muted2);font-size:0.55rem;">(short summary)</span></label>
+        <input type="text" id="pExcerpt" placeholder="A brief one-line summary…" />
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label>Content * <span style="color:var(--muted2);font-size:0.55rem;">(Markdown-lite: ## for h2, > for quote, - for list)</span></label>
+      <textarea id="pContent" style="min-height:180px;" placeholder="Write your post content here…&#10;&#10;## A Section Heading&#10;&#10;Your paragraph text goes here.&#10;&#10;- A list item&#10;- Another item&#10;&#10;> A blockquote"></textarea>
+    </div>
+
+    <div class="post-drawer__actions">
+      <button id="cancelPost" class="btn btn--ghost">Cancel</button>
+      <button id="submitPost" class="btn btn--primary">Publish Post →</button>
+    </div>
+  </div>
+
+  <!-- FILTERS & TOOLBAR -->
+  <div class="blog-toolbar">
+    <div class="blog-filters">
+      <button class="filter-btn active" data-filter="all">All Posts</button>
+      <button class="filter-btn" data-filter="Research">Research</button>
+      <button class="filter-btn" data-filter="GAN">GAN</button>
+      <button class="filter-btn" data-filter="Deep Learning">Deep Learning</button>
+      <button class="filter-btn" data-filter="Tutorial">Tutorial</button>
+      <button class="filter-btn" data-filter="Reflections">Reflections</button>
+    </div>
+  </div>
+
+  <!-- BLOG GRID (rendered by blog.js) -->
+  <div class="blog-grid" id="blogGrid"></div>
+
+</div>
+
+<footer class="footer">
+  <span class="footer__left">© 2025 Zannatul Naim</span>
+  <span class="footer__center">Posts saved locally in your browser</span>
+  <span class="footer__right">Rajshahi, Bangladesh</span>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/blog.js"></script>
+</body>
+</html>

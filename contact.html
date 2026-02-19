@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Zannatul Naim</title>
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/inner.css" />
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+
+<nav class="nav">
+  <a href="index.html" class="nav__logo">
+    <span class="nav__logo-name">Zannatul Naim</span>
+    <span class="nav__logo-sub">AI Researcher</span>
+  </a>
+  <ul class="nav__links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="nav__hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav__mobile">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="research.html">Research</a>
+  <a href="skills.html">Skills</a>
+  <a href="blog.html">Blog</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <p class="page-hero__eyebrow reveal">// Let's Connect</p>
+  <h1 class="page-hero__title reveal">
+    Get In <em>Touch</em>
+  </h1>
+  <p class="page-hero__desc reveal">
+    Open to MSc research opportunities, collaborations, and conversations
+    about generative AI, deep learning, and BCI research.
+  </p>
+</div>
+
+<div class="divider"></div>
+
+<div class="page-wrap">
+  <div class="contact-layout">
+
+    <!-- LEFT: Contact Info -->
+    <div>
+      <p class="section-label reveal">Direct Contact</p>
+      <h2 class="section-title reveal" style="margin-bottom:2rem;">Reach <em>Out</em></h2>
+
+      <a href="mailto:zannatulnaim09@gmail.com" class="contact-big-email reveal">
+        zannatulnaim09@gmail.com
+      </a>
+
+      <ul class="contact-links-list reveal">
+        <li><a href="https://linkedin.com/in/zannatulnaim09" target="_blank">LinkedIn — zannatulnaim09</a></li>
+        <li><a href="https://github.com/Zannatul-Naim" target="_blank">GitHub — Zannatul-Naim</a></li>
+        <li><span>Phone — +8801571228737</span></li>
+        <li><span>Location — Rajshahi, Bangladesh</span></li>
+      </ul>
+
+      <div style="margin-top:4rem;padding:2rem;border:1px solid var(--border);border-radius:var(--radius);background:rgba(255,255,255,0.02);" class="reveal">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--cyan);margin-bottom:1rem;">Currently Open To</div>
+        <div style="display:flex;flex-direction:column;gap:0.7rem;">
+          <div style="display:flex;align-items:center;gap:0.8rem;font-size:0.9rem;color:var(--muted);">
+            <span style="color:var(--cyan);">◈</span> MSc Research Positions (Generative AI)
+          </div>
+          <div style="display:flex;align-items:center;gap:0.8rem;font-size:0.9rem;color:var(--muted);">
+            <span style="color:var(--cyan);">◈</span> Research Collaborations
+          </div>
+          <div style="display:flex;align-items:center;gap:0.8rem;font-size:0.9rem;color:var(--muted);">
+            <span style="color:var(--cyan);">◈</span> ML/DL Engineering Roles
+          </div>
+          <div style="display:flex;align-items:center;gap:0.8rem;font-size:0.9rem;color:var(--muted);">
+            <span style="color:var(--cyan);">◈</span> Academic / Conference Discussions
+          </div>
+        </div>
+      </div>
+
+      <!-- Academic Reference -->
+      <div class="ref-card reveal" style="margin-top:2rem;">
+        <div class="ref-card__label">Academic Reference</div>
+        <div class="ref-card__name">Dr. Md. Ekramul Hamid</div>
+        <div class="ref-card__title">Professor, Dept. of CSE</div>
+        <div class="ref-card__title">University of Rajshahi, Bangladesh</div>
+        <div class="ref-card__email">ekram_hamid@ru.ac.bd</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Contact Form -->
+    <div>
+      <div class="contact-form-card reveal">
+        <div class="contact-form-card__title">Send a Message</div>
+        <div class="contact-form-card__sub">
+          This form composes an email via your mail client.
+        </div>
+
+        <div class="form-field">
+          <label>Your Name</label>
+          <input type="text" id="cfName" placeholder="Your full name" />
+        </div>
+
+        <div class="form-field">
+          <label>Your Email</label>
+          <input type="email" id="cfEmail" placeholder="your@email.com" />
+        </div>
+
+        <div class="form-field">
+          <label>Subject</label>
+          <select id="cfSubject">
+            <option value="MSc Research Inquiry">MSc Research Inquiry</option>
+            <option value="Research Collaboration">Research Collaboration</option>
+            <option value="Job Opportunity">Job Opportunity</option>
+            <option value="General Question">General Question</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label>Message</label>
+          <textarea id="cfMessage" style="min-height:150px;" placeholder="Your message…"></textarea>
+        </div>
+
+        <button class="btn btn--primary" id="sendMsg" style="width:100%;justify-content:center;margin-top:0.5rem;">
+          Open in Mail Client →
+        </button>
+
+        <p class="form-note">This opens your default email app with the form filled in.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="footer">
+  <span class="footer__left">© 2025 Zannatul Naim</span>
+  <span class="footer__center">Built with curiosity & precision</span>
+  <span class="footer__right">Rajshahi, Bangladesh</span>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  document.getElementById('sendMsg').addEventListener('click', function () {
+    const name    = document.getElementById('cfName').value.trim();
+    const email   = document.getElementById('cfEmail').value.trim();
+    const subject = document.getElementById('cfSubject').value;
+    const message = document.getElementById('cfMessage').value.trim();
+
+    if (!name || !message) {
+      alert('Please enter your name and a message.');
+      return;
+    }
+
+    const body = encodeURIComponent(
+      `Hi Zannatul,\n\n${message}\n\nBest regards,\n${name}${email ? '\n' + email : ''}`
+    );
+    const sub = encodeURIComponent(`[Portfolio] ${subject}`);
+    window.location.href = `mailto:zannatulnaim09@gmail.com?subject=${sub}&body=${body}`;
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why WGAN-GP Changed the Way I Think About Generative Models — Zannatul Naim</title>
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/blog.css" />
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+
+<nav class="nav">
+  <a href="../index.html" class="nav__logo">
+    <span class="nav__logo-name">Zannatul Naim</span>
+    <span class="nav__logo-sub">AI Researcher</span>
+  </a>
+  <ul class="nav__links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../about.html">About</a></li>
+    <li><a href="../research.html">Research</a></li>
+    <li><a href="../skills.html">Skills</a></li>
+    <li><a href="../blog.html">Blog</a></li>
+    <li><a href="../contact.html">Contact</a></li>
+  </ul>
+  <button class="nav__hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav__mobile">
+  <a href="../index.html">Home</a>
+  <a href="../about.html">About</a>
+  <a href="../research.html">Research</a>
+  <a href="../skills.html">Skills</a>
+  <a href="../blog.html">Blog</a>
+  <a href="../contact.html">Contact</a>
+</div>
+
+<div class="post-layout">
+
+  <!-- MAIN POST CONTENT -->
+  <main class="post-main">
+    <div class="post-header">
+      <a href="../blog.html" class="post-header__back">← Back to Blog</a>
+      <div class="post-header__meta">
+        <span class="post-header__cat">GAN</span>
+        <span class="post-header__date">November 2025</span>
+        <span class="post-header__readtime">6 min read</span>
+      </div>
+      <h1 class="post-header__title">
+        Why WGAN-GP Changed the Way I Think About Generative Models
+      </h1>
+      <p class="post-header__excerpt">
+        Training GANs is notoriously unstable. I reflect on how the Wasserstein distance and
+        gradient penalty transformed my thesis work on SSVEP data augmentation — and why
+        understanding your loss function matters more than tuning hyperparameters.
+      </p>
+    </div>
+
+    <div class="post-body">
+
+      <p>
+        Training a vanilla GAN for the first time is humbling. Mode collapse, vanishing gradients,
+        and oscillating losses become familiar enemies very quickly. You spend hours tuning
+        learning rates and architecture choices, only to watch your generator produce identical
+        outputs or your discriminator saturate entirely.
+      </p>
+
+      <p>
+        During my undergraduate thesis on GAN-based data augmentation for SSVEP recognition,
+        I hit every one of these walls. The task was synthesizing realistic EEG time-series
+        for low-resource BCI tasks — a problem that sits at the intersection of data scarcity,
+        signal complexity, and the inherent brittleness of adversarial training.
+      </p>
+
+      <h2>The Problem with Standard GANs</h2>
+
+      <p>
+        The original GAN framework uses a binary cross-entropy loss where the discriminator
+        learns to distinguish real from fake examples. The problem? When the discriminator
+        becomes too good — which happens quickly with complex signal data — it starts
+        outputting near-zero gradients for generated samples. The generator receives no
+        useful learning signal. Training stalls.
+      </p>
+
+      <p>
+        This is the <strong>vanishing gradient problem</strong> in GANs, and it's especially
+        pronounced when your real and generated distributions are far apart, which is exactly
+        the situation during early training when the generator hasn't learned much yet.
+      </p>
+
+      <blockquote>
+        Mode collapse was my biggest headache: the generator would discover one "safe"
+        EEG pattern that fooled the discriminator and reproduce it for every input.
+      </blockquote>
+
+      <h2>Enter the Wasserstein Distance</h2>
+
+      <p>
+        The WGAN paper (Arjovsky et al., 2017) reframes GAN training as minimizing the
+        <strong>Wasserstein-1 distance</strong> (also called Earth Mover's Distance) between
+        the real and generated distributions. This metric measures the minimum "work" required
+        to transform one distribution into another — and crucially, it's well-defined even
+        when the two distributions don't overlap.
+      </p>
+
+      <p>
+        The practical consequence is profound: the critic (not discriminator — it's no longer
+        binary) produces meaningful gradient signals throughout training, not just when the
+        distributions are close. Even when your generator is producing garbage, it gets useful
+        feedback about which direction to improve.
+      </p>
+
+      <h2>The Gradient Penalty</h2>
+
+      <p>
+        The original WGAN enforced the required 1-Lipschitz constraint via <strong>weight
+        clipping</strong> — limiting the critic's weights to a small range. This works but
+        introduces its own instabilities, particularly limiting the model's capacity.
+      </p>
+
+      <p>
+        WGAN-GP (Gulrajani et al., 2017) replaces weight clipping with a
+        <strong>gradient penalty</strong> — an additional term in the loss that directly
+        penalizes the norm of the critic's gradients with respect to interpolated samples
+        between real and fake data. This enforces Lipschitz continuity in a much more
+        principled way, allowing the critic to use its full capacity.
+      </p>
+
+      <pre><code># Gradient penalty (conceptual PyTorch)
+eps = torch.rand(batch_size, 1, 1).to(device)
+interpolated = eps * real + (1 - eps) * fake
+interp_out = critic(interpolated)
+
+gradients = torch.autograd.grad(
+    outputs=interp_out, inputs=interpolated,
+    grad_outputs=torch.ones_like(interp_out),
+    create_graph=True, retain_graph=True
+)[0]
+
+gp = ((gradients.norm(2, dim=1) - 1) ** 2).mean()
+critic_loss = fake_score - real_score + lambda_gp * gp</code></pre>
+
+      <h2>What Changed in My Thesis</h2>
+
+      <p>
+        Switching to WGAN-GP had an immediate and dramatic effect on training stability.
+        The mode collapse I had been battling largely disappeared. The loss curves became
+        interpretable — the Wasserstein distance gives you a meaningful number that
+        correlates with generation quality, unlike the adversarial losses in vanilla GANs.
+      </p>
+
+      <p>
+        Combined with <strong>spectral normalization</strong> on the generator layers and
+        careful noise modeling to match EEG acquisition artifacts, the WGAN-GP produced
+        synthetic EEG signals that improved downstream SSVEP classification performance —
+        the entire goal of the augmentation pipeline.
+      </p>
+
+      <h2>The Deeper Lesson</h2>
+
+      <p>
+        What WGAN-GP taught me is that the choice of loss function is not a minor
+        implementation detail — it encodes fundamental assumptions about how you measure
+        the distance between probability distributions. Understanding <em>why</em> a loss
+        works, mathematically, is the difference between debugging blindly and making
+        principled architectural decisions.
+      </p>
+
+      <p>
+        If you're working with GANs on scientific signal data — EEG, ECG, time-series of
+        any kind — start with WGAN-GP. The stability improvements are not marginal.
+        They're the difference between a training run that converges and one that doesn't.
+      </p>
+
+      <hr />
+
+      <p>
+        <em>This post is adapted from reflections during my undergraduate thesis at the
+        HCI Lab, University of Rajshahi. The thesis focused on SSVEP-based BCI data
+        augmentation using conditional generative models.</em>
+      </p>
+
+    </div>
+
+    <div class="post-nav">
+      <div></div>
+      <a href="cross-subject-eeg.html" class="post-nav__item post-nav__item--next">
+        <div class="post-nav__dir">Next Post →</div>
+        <div class="post-nav__title">Reflections on Cross-Subject EEG Generalization</div>
+      </a>
+    </div>
+
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside class="post-sidebar">
+    <div class="post-sidebar__section">
+      <div class="post-sidebar__label">Author</div>
+      <div class="post-sidebar__author-name">Zannatul Naim</div>
+      <div class="post-sidebar__author-role">AI Researcher · B.Sc. CSE<br>University of Rajshahi</div>
+    </div>
+
+    <div class="post-sidebar__section">
+      <div class="post-sidebar__label">Table of Contents</div>
+      <ul class="post-sidebar__toc">
+        <li><a href="#" onclick="return false;">The Problem with Standard GANs</a></li>
+        <li><a href="#" onclick="return false;">Enter the Wasserstein Distance</a></li>
+        <li><a href="#" onclick="return false;">The Gradient Penalty</a></li>
+        <li><a href="#" onclick="return false;">What Changed in My Thesis</a></li>
+        <li><a href="#" onclick="return false;">The Deeper Lesson</a></li>
+      </ul>
+    </div>
+
+    <div class="post-sidebar__section">
+      <div class="post-sidebar__label">Tags</div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.2rem;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;padding:0.25rem 0.6rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">GAN</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;padding:0.25rem 0.6rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">WGAN-GP</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;padding:0.25rem 0.6rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">EEG</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;padding:0.25rem 0.6rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">PyTorch</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;padding:0.25rem 0.6rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">Thesis</span>
+      </div>
+    </div>
+  </aside>
+
+</div>
+
+<footer class="footer" style="margin-top:4rem;">
+  <span class="footer__left">© 2025 Zannatul Naim</span>
+  <span class="footer__center">Built with curiosity & precision</span>
+  <span class="footer__right">Rajshahi, Bangladesh</span>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Research — Zannatul Naim</title>
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/inner.css" />
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+
+<nav class="nav">
+  <a href="index.html" class="nav__logo">
+    <span class="nav__logo-name">Zannatul Naim</span>
+    <span class="nav__logo-sub">AI Researcher</span>
+  </a>
+  <ul class="nav__links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="nav__hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav__mobile">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="research.html">Research</a>
+  <a href="skills.html">Skills</a>
+  <a href="blog.html">Blog</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <p class="page-hero__eyebrow reveal">// Publications & Thesis</p>
+  <h1 class="page-hero__title reveal">
+    Research <em>Work</em>
+  </h1>
+  <p class="page-hero__desc reveal">
+    Published at international undergraduate conferences. Research at the intersection
+    of generative modeling, EEG signal processing, and robust deep learning.
+  </p>
+</div>
+
+<div class="divider"></div>
+
+<div class="page-wrap">
+
+  <p class="section-label reveal">Conference Papers</p>
+  <h2 class="section-title reveal">Publications</h2>
+
+  <!-- PUB 1 -->
+  <div class="pub-card reveal">
+    <div class="pub-card__number">01</div>
+    <div class="pub-card__venue">UCICS 2026 — Undergraduate Conference on Intelligent Computing and Systems</div>
+    <h3 class="pub-card__title">Subject-Independent Event Recognition Using a Lightweight 1D Neural Network</h3>
+    <ul class="pub-card__points">
+      <li>Designed an efficient 1D neural architecture specifically targeting cross-subject generalization in EEG-based event recognition tasks.</li>
+      <li>Achieved <strong>95.35% accuracy</strong> under the rigorous leave-one-subject-out (LOSO) cross-validation protocol.</li>
+      <li>Addressed the fundamental challenge of subject variability in BCI research through careful architectural choices and regularization.</li>
+    </ul>
+  </div>
+
+  <!-- PUB 2 -->
+  <div class="pub-card reveal">
+    <div class="pub-card__number">02</div>
+    <div class="pub-card__venue">UCICS 2025 — Undergraduate Conference on Intelligent Computing and Systems</div>
+    <h3 class="pub-card__title">Data Augmentation Approach to Frequency Recognition Using Mask-Encoding Based Deep Learning</h3>
+    <ul class="pub-card__points">
+      <li>Developed a novel mask-encoding based augmentation methodology to improve model invariance under noisy time-series EEG conditions.</li>
+      <li>Enhanced classification performance by increasing feature diversity and reducing sensitivity to signal artifacts.</li>
+      <li>Demonstrated improved robustness on SSVEP frequency recognition benchmarks, particularly in low-data regimes.</li>
+    </ul>
+  </div>
+
+  <!-- THESIS -->
+  <div class="thesis-card reveal">
+    <div class="thesis-card__badge">Undergraduate Thesis · Dec 2024 – Oct 2025</div>
+    <h3 class="thesis-card__title">GAN-Based Data Augmentation for SSVEP Recognition</h3>
+    <div class="thesis-card__sub">
+      Human-Computer Interaction (HCI) Lab · University of Rajshahi · Supervisor: Dr. Md. Ekramul Hamid
+    </div>
+    <ul class="thesis-card__points">
+      <li>Implemented a <strong>conditional WGAN-GP</strong> to synthesize realistic EEG time-series data for low-resource BCI tasks.</li>
+      <li>Enhanced downstream SSVEP classification performance by increasing synthesized data diversity.</li>
+      <li>Optimized GAN training stability through gradient penalties and spectral normalization.</li>
+      <li>Applied noise modeling to better match real-world EEG acquisition conditions.</li>
+      <li>Conducted extensive multi-user dataset evaluation emphasizing generalization and fairness.</li>
+      <li>Reduced subject bias in augmented datasets, improving cross-subject applicability.</li>
+    </ul>
+  </div>
+
+  <!-- Research Focus Section -->
+  <div style="margin-top:5rem;">
+    <p class="section-label reveal">Direction</p>
+    <h2 class="section-title reveal">Research <em>Focus</em></h2>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;" class="reveal">
+      <div style="padding:2rem;border:1px solid var(--border);border-radius:var(--radius);background:rgba(255,255,255,0.02);">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--cyan);margin-bottom:1rem;">Primary</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--white);margin-bottom:0.6rem;">Generative AI & Large Models</div>
+        <div style="font-size:0.85rem;color:var(--muted);line-height:1.7;">GANs, diffusion models, foundational generative architectures, and their application to scientific data synthesis.</div>
+      </div>
+      <div style="padding:2rem;border:1px solid var(--border);border-radius:var(--radius);background:rgba(255,255,255,0.02);">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;">Applied</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--white);margin-bottom:0.6rem;">EEG / BCI Research</div>
+        <div style="font-size:0.85rem;color:var(--muted);line-height:1.7;">Brain-computer interface systems, EEG signal classification, SSVEP recognition, cross-subject generalization.</div>
+      </div>
+      <div style="padding:2rem;border:1px solid var(--border);border-radius:var(--radius);background:rgba(255,255,255,0.02);">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;">Theoretical</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--white);margin-bottom:0.6rem;">Representation Learning</div>
+        <div style="font-size:0.85rem;color:var(--muted);line-height:1.7;">Feature disentanglement, learned embeddings, latent space geometry, and robust optimization methods.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <span class="footer__left">© 2025 Zannatul Naim</span>
+  <span class="footer__center">Built with curiosity & precision</span>
+  <span class="footer__right">Rajshahi, Bangladesh</span>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

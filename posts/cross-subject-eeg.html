@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reflections on Cross-Subject EEG Generalization — Zannatul Naim</title>
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/blog.css" />
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+
+<nav class="nav">
+  <a href="../index.html" class="nav__logo">
+    <span class="nav__logo-name">Zannatul Naim</span>
+    <span class="nav__logo-sub">AI Researcher</span>
+  </a>
+  <ul class="nav__links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../about.html">About</a></li>
+    <li><a href="../research.html">Research</a></li>
+    <li><a href="../skills.html">Skills</a></li>
+    <li><a href="../blog.html">Blog</a></li>
+    <li><a href="../contact.html">Contact</a></li>
+  </ul>
+  <button class="nav__hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav__mobile">
+  <a href="../index.html">Home</a>
+  <a href="../about.html">About</a>
+  <a href="../research.html">Research</a>
+  <a href="../skills.html">Skills</a>
+  <a href="../blog.html">Blog</a>
+  <a href="../contact.html">Contact</a>
+</div>
+
+<div class="post-layout">
+
+  <main class="post-main">
+    <div class="post-header">
+      <a href="../blog.html" class="post-header__back">← Back to Blog</a>
+      <div class="post-header__meta">
+        <span class="post-header__cat">Research</span>
+        <span class="post-header__date">October 2025</span>
+        <span class="post-header__readtime">5 min read</span>
+      </div>
+      <h1 class="post-header__title">
+        Reflections on Cross-Subject EEG Generalization
+      </h1>
+      <p class="post-header__excerpt">
+        One of the hardest problems in BCI research is making models that work across
+        different people. Here's what I learned building a subject-independent neural
+        architecture that achieves 95.35% LOSO accuracy.
+      </p>
+    </div>
+
+    <div class="post-body">
+
+      <p>
+        EEG data is notoriously personal. Your brain's electrical signals during a mental
+        task look subtly — and sometimes dramatically — different from everyone else's.
+        Anatomy, electrode placement, attention levels, fatigue, and dozens of other factors
+        all imprint themselves on the signal. This makes building generalizable BCI models
+        genuinely hard.
+      </p>
+
+      <p>
+        When I set out to build a <strong>subject-independent event recognition model</strong>
+        using a lightweight 1D neural network, the primary challenge wasn't the architecture
+        itself — it was thinking carefully about what generalization actually means in this
+        context and how to honestly evaluate it.
+      </p>
+
+      <h2>The Evaluation Problem</h2>
+
+      <p>
+        Most classification papers report accuracy on a held-out test set drawn from the same
+        distribution as training. For EEG, this means the model has likely seen data from
+        the same subjects it's being evaluated on. The numbers look great. The real-world
+        performance, when deployed on a new user, does not.
+      </p>
+
+      <p>
+        <strong>Leave-one-subject-out (LOSO) cross-validation</strong> became my north star.
+        The protocol: train on N-1 subjects, test on the held-out subject, repeat for every
+        subject, average the results. This gives you an honest estimate of how your model
+        performs on someone it has never encountered.
+      </p>
+
+      <blockquote>
+        LOSO is uncomfortable because it exposes how well your model truly generalizes.
+        A model that scores 99% on within-subject splits might score 60% under LOSO.
+        That gap is the truth about your architecture.
+      </blockquote>
+
+      <h2>Architectural Choices That Mattered</h2>
+
+      <p>
+        The architecture I ended up with was deliberately lightweight — not because compute
+        was limited, but because simpler models generalize better when you have limited
+        training data per subject and high inter-subject variability.
+      </p>
+
+      <p>
+        The key choices:
+      </p>
+
+      <ul>
+        <li><strong>Depthwise separable convolutions</strong> — dramatically reduce parameter count without sacrificing receptive field. Fewer parameters means less capacity to overfit to subject-specific patterns.</li>
+        <li><strong>Batch normalization</strong> — helps the model adapt to distribution shifts between subjects by normalizing activations layer by layer.</li>
+        <li><strong>Temporal feature extraction</strong> — small 1D kernels to capture local oscillatory patterns, which are more likely to be subject-independent than global signal characteristics.</li>
+        <li><strong>Dropout at multiple layers</strong> — standard regularization, but particularly important when the effective training set size is small (N-1 subjects).</li>
+      </ul>
+
+      <h2>What 95.35% Actually Means</h2>
+
+      <p>
+        Achieving 95.35% accuracy under LOSO validation felt significant. But it's worth
+        contextualizing: the task is specific (SSVEP-based event recognition), the electrode
+        montage is controlled, and the stimulus protocol is fixed. Real-world BCI deployment
+        is harder.
+      </p>
+
+      <p>
+        What the result tells us is that the <em>architectural approach</em> works —
+        the combination of depthwise separable convolutions, temporal feature extraction,
+        and careful regularization extracts patterns that are genuinely shared across subjects,
+        rather than memorizing individual signal idiosyncrasies.
+      </p>
+
+      <h2>What I Would Do Differently</h2>
+
+      <p>
+        Looking back, I would invest more in <strong>data augmentation during training</strong>.
+        Techniques like adding subject-simulated noise, random temporal shifts, and channel
+        dropout would have made the model more robust to the exact kinds of variability that
+        cause LOSO performance to drop.
+      </p>
+
+      <p>
+        I would also explore <strong>domain adaptation</strong> methods — training a shared
+        feature extractor with explicit alignment between subject distributions. This is a
+        more principled approach than simply hoping regularization handles the inter-subject gap.
+      </p>
+
+      <hr />
+
+      <p>
+        <em>This work was published at UCICS 2026. The subject-independent architecture
+        was designed during my final year at the HCI Lab, University of Rajshahi.</em>
+      </p>
+
+    </div>
+
+    <div class="post-nav">
+      <a href="wgan-gp.html" class="post-nav__item">
+        <div class="post-nav__dir">← Previous</div>
+        <div class="post-nav__title">Why WGAN-GP Changed the Way I Think About Generative Models</div>
+      </a>
+      <a href="pytorch-timeseries.html" class="post-nav__item post-nav__item--next">
+        <div class="post-nav__dir">Next Post →</div>
+        <div class="post-nav__title">Getting Started with PyTorch for Time-Series Deep Learning</div>
+      </a>
+    </div>
+
+  </main>
+
+  <aside class="post-sidebar">
+    <div class="post-sidebar__section">
+      <div class="post-sidebar__label">Author</div>
+      <div class="post-sidebar__author-name">Zannatul Naim</div>
+      <div class="post-sidebar__author-role">AI Researcher · B.Sc. CSE<br>University of Rajshahi</div>
+    </div>
+
+    <div class="post-sidebar__section">
+      <div class="post-sidebar__label">Table of Contents</div>
+      <ul class="post-sidebar__toc">
+        <li><a href="#" onclick="return false;">The Evaluation Problem</a></li>
+        <li><a href="#" onclick="return false;">Architectural Choices That Mattered</a></li>
+        <li><a href="#" onclick="return false;">What 95.35% Actually Means</a></li>
+        <li><a href="#" onclick="return false;">What I Would Do Differently</a></li>
+      </ul>
+    </div>
+
+    <div class="post-sidebar__section">
+      <div class="post-sidebar__label">Tags</div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;padding:0.25rem 0.6rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">EEG</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;padding:0.25rem 0.6rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">BCI</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;padding:0.25rem 0.6rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">LOSO</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;padding:0.25rem 0.6rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">SSVEP</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;padding:0.25rem 0.6rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);">UCICS 2026</span>
+      </div>
+    </div>
+  </aside>
+
+</div>
+
+<footer class="footer" style="margin-top:4rem;">
+  <span class="footer__left">© 2025 Zannatul Naim</span>
+  <span class="footer__center">Built with curiosity & precision</span>
+  <span class="footer__right">Rajshahi, Bangladesh</span>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

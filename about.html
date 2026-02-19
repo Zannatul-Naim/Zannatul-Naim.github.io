@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Zannatul Naim</title>
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/inner.css" />
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+
+<nav class="nav">
+  <a href="index.html" class="nav__logo">
+    <span class="nav__logo-name">Zannatul Naim</span>
+    <span class="nav__logo-sub">AI Researcher</span>
+  </a>
+  <ul class="nav__links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="nav__hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav__mobile">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="research.html">Research</a>
+  <a href="skills.html">Skills</a>
+  <a href="blog.html">Blog</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <p class="page-hero__eyebrow reveal">// Profile</p>
+  <h1 class="page-hero__title reveal">
+    About <em>Me</em>
+  </h1>
+  <p class="page-hero__desc reveal">
+    A graduate researcher with a deep passion for generative AI,
+    mathematical modeling, and building AI systems that matter.
+  </p>
+</div>
+
+<div class="divider"></div>
+
+<!-- MAIN CONTENT -->
+<div class="page-wrap">
+  <div class="about-grid">
+
+    <!-- LEFT: TEXT -->
+    <div>
+      <div class="about-text">
+        <p class="reveal">
+          I'm <strong>Zannatul Naim</strong>, a Computer Science and Engineering graduate from the
+          <strong>University of Rajshahi</strong>, Bangladesh (CGPA: 3.68/4.00, Jan 2020 – Dec 2025).
+          My academic journey has been defined by an ever-deepening fascination with the mathematics
+          and engineering behind intelligent systems.
+        </p>
+        <p class="reveal">
+          My research centers on <strong>generative modeling</strong> — specifically how we can use
+          GANs and other generative methods to solve the chronic data scarcity problem in
+          Brain-Computer Interface (BCI) research. During my undergraduate thesis, I implemented
+          a <strong>conditional WGAN-GP</strong> to synthesize realistic EEG time-series data for
+          SSVEP-based BCI, significantly improving downstream classification performance.
+        </p>
+        <p class="reveal">
+          I've published twice at the <em>Undergraduate Conference on Intelligent Computing and
+          Systems (UCICS)</em>, including a paper achieving <strong>95.35% cross-subject
+          accuracy</strong> on EEG event recognition — a result that required rethinking
+          architectural choices from the ground up.
+        </p>
+        <p class="reveal">
+          Beyond research, I'm an avid competitive programmer with <strong>600+ problems solved</strong>
+          across Codeforces, UVA, LightOJ, CodeChef, and CSES. This practice sharpens the
+          algorithmic instincts that make me a better researcher and engineer.
+        </p>
+        <p class="reveal">
+          I'm currently seeking an <strong>MSc position in Generative AI</strong> — particularly
+          at the University of Manitoba's CORE AI Lab — where I can contribute to foundational
+          research on large generative models and representation learning at scale.
+        </p>
+      </div>
+
+      <!-- Education -->
+      <div class="edu-card reveal">
+        <div>
+          <div class="edu-card__university">University of Rajshahi</div>
+          <div class="edu-card__degree">B.Sc. in Computer Science and Engineering</div>
+          <div class="edu-card__period">Jan 2020 – Dec 2025 · Rajshahi, Bangladesh</div>
+        </div>
+        <div class="edu-card__gpa">
+          <div class="edu-card__gpa-num">3.68</div>
+          <div class="edu-card__gpa-label">CGPA / 4.00</div>
+        </div>
+      </div>
+
+      <!-- Research Interests -->
+      <h3 class="section-label reveal" style="margin-top:4rem;">Research Interests</h3>
+      <div class="interests-grid reveal">
+        <div class="interest-item">
+          <div class="interest-item__icon">⚡</div>
+          <div class="interest-item__title">Generative AI</div>
+          <div class="interest-item__desc">GANs, diffusion models, VAEs, and large generative architectures.</div>
+        </div>
+        <div class="interest-item">
+          <div class="interest-item__icon">🧠</div>
+          <div class="interest-item__title">Deep Learning Theory</div>
+          <div class="interest-item__desc">Representation learning, feature disentanglement, optimization landscapes.</div>
+        </div>
+        <div class="interest-item">
+          <div class="interest-item__icon">📐</div>
+          <div class="interest-item__title">Probabilistic Modeling</div>
+          <div class="interest-item__desc">Bayesian methods, probabilistic inference, uncertainty quantification.</div>
+        </div>
+        <div class="interest-item">
+          <div class="interest-item__icon">🔬</div>
+          <div class="interest-item__title">Robust AI</div>
+          <div class="interest-item__desc">Efficient and fair ML for real-world deployment in low-resource settings.</div>
+        </div>
+      </div>
+
+      <!-- Reference -->
+      <div class="ref-card reveal">
+        <div class="ref-card__label">Academic Reference</div>
+        <div class="ref-card__name">Dr. Md. Ekramul Hamid</div>
+        <div class="ref-card__title">Professor, Department of Computer Science and Engineering</div>
+        <div class="ref-card__title">University of Rajshahi, Bangladesh</div>
+        <div class="ref-card__email">ekram_hamid@ru.ac.bd</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: STATS SIDEBAR -->
+    <div class="about-sidebar">
+      <div class="stat-block reveal">
+        <div class="stat-block__num">3.68</div>
+        <div class="stat-block__label">CGPA / 4.00 — B.Sc. CSE</div>
+      </div>
+      <div class="stat-block reveal">
+        <div class="stat-block__num">2</div>
+        <div class="stat-block__label">Published papers at international conferences</div>
+      </div>
+      <div class="stat-block reveal">
+        <div class="stat-block__num">600+</div>
+        <div class="stat-block__label">Competitive programming problems solved</div>
+      </div>
+      <div class="stat-block reveal">
+        <div class="stat-block__num">95.35%</div>
+        <div class="stat-block__label">Cross-subject LOSO accuracy — EEG recognition</div>
+      </div>
+      <div class="stat-block reveal">
+        <div class="stat-block__num">5yr</div>
+        <div class="stat-block__label">B.Sc. degree duration (Jan 2020 – Dec 2025)</div>
+      </div>
+
+      <!-- Resume Card (Simple) -->
+      <div style="padding:1.5rem;border:1px solid rgba(76,175,80,0.3);border-radius:var(--radius);background:rgba(76,175,80,0.05);" class="reveal">
+        <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:1rem;">
+          <span style="font-size:1.8rem;">📄</span>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:#4CAF50;">Resume</div>
+        </div>
+        <a href="https://drive.google.com/file/d/1fnRmklmRkTOLvD9EAzHe8vAbzAZnllGT/view?usp=sharing" target="_blank" style="display:inline-block;padding:0.6rem 1.2rem;background:#4CAF50;color:white;text-decoration:none;border-radius:0.3rem;font-family:'IBM Plex Mono',monospace;font-size:0.65rem;font-weight:600;letter-spacing:0.08em;transition:all 0.2s;box-shadow:0 2px 8px rgba(76,175,80,0.2);">Download</a>
+      </div>
+
+      <div style="margin-top:1rem;padding:1.5rem;border:1px solid var(--border);border-radius:var(--radius);background:rgba(255,255,255,0.02);" class="reveal">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--cyan);margin-bottom:1rem;">Contact</div>
+        <div style="font-size:0.82rem;color:var(--muted);display:flex;flex-direction:column;gap:0.6rem;">
+          <span>📧 zannatulnaim09@gmail.com</span>
+          <span>📞 +8801571228737</span>
+          <span>📍 Rajshahi, Bangladesh</span>
+          <a href="https://github.com/Zannatul-Naim" target="_blank" style="color:var(--cyan);">↗ GitHub</a>
+          <a href="https://linkedin.com/in/zannatulnaim09" target="_blank" style="color:var(--cyan);">↗ LinkedIn</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="footer">
+  <span class="footer__left">© 2025 Zannatul Naim</span>
+  <span class="footer__center">Built with curiosity & precision</span>
+  <span class="footer__right">Rajshahi, Bangladesh</span>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
