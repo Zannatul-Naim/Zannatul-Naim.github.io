@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>DiagBot — Developer Documentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
+<style>
+:root{
+--bg:#07101c;--bg2:#0c1826;--bg3:#111f30;--bg4:#16293d;
+--border:#1e3147;--border2:#264260;
+--text:#d9eaf5;--text2:#8baec8;--text3:#4e7a9e;
+--teal:#00d4aa;--teal2:#00a880;--teal3:#007a5e;--teal-dim:#001f19;
+--amber:#f5a623;--amber-dim:#1e1000;
+--red:#ff5c5c;--red-dim:#1f0808;
+--blue:#4da6ff;--blue-dim:#040f1f;
+--purple:#a78bfa;
+--mono:'JetBrains Mono',monospace;
+--sans:'DM Sans',sans-serif;
+--display:'Syne',sans-serif;
+--radius:8px;--radius-lg:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.7;display:flex;min-height:100vh;}
+
+/* ── Sidebar ── */
+#sidebar{
+  width:260px;min-width:260px;background:var(--bg2);border-right:1px solid var(--border);
+  position:sticky;top:0;height:100vh;overflow-y:auto;padding:0 0 2rem;flex-shrink:0;
+}
+#sidebar::-webkit-scrollbar{width:4px;}
+#sidebar::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+.sidebar-logo{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid var(--border);margin-bottom:.5rem;}
+.sidebar-logo .logo-icon{
+  width:38px;height:38px;background:var(--teal-dim);border:1px solid var(--teal3);
+  border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:.75rem;font-size:18px;
+}
+.sidebar-logo h2{font-family:var(--display);font-size:1rem;font-weight:700;color:var(--text);letter-spacing:.02em;}
+.sidebar-logo p{font-size:.72rem;color:var(--text3);margin-top:.15rem;font-weight:300;}
+.nav-section{padding:.5rem 1.25rem .25rem;font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);}
+.nav-link{
+  display:block;padding:.45rem 1.25rem;font-size:.82rem;color:var(--text2);text-decoration:none;
+  border-left:2px solid transparent;transition:all .15s;font-weight:400;
+}
+.nav-link:hover{color:var(--text);background:var(--bg3);border-left-color:var(--border2);}
+.nav-link.active{color:var(--teal);background:var(--teal-dim);border-left-color:var(--teal);}
+.nav-sub{padding-left:1.75rem;font-size:.78rem;color:var(--text3);}
+.nav-sub:hover{color:var(--text2);background:var(--bg3);}
+
+/* ── Main content ── */
+#main{flex:1;max-width:900px;padding:3rem 3.5rem 6rem;overflow-x:hidden;}
+
+/* ── Typography ── */
+h1{font-family:var(--display);font-size:2.6rem;font-weight:800;color:#fff;line-height:1.15;letter-spacing:-.02em;margin-bottom:.6rem;}
+h2{font-family:var(--display);font-size:1.55rem;font-weight:700;color:#fff;margin:3rem 0 1rem;letter-spacing:-.01em;padding-top:1rem;}
+h2::before{content:'';display:block;height:1px;background:linear-gradient(90deg,var(--teal3),transparent);margin-bottom:1.25rem;}
+h3{font-family:var(--display);font-size:1.1rem;font-weight:600;color:var(--text);margin:1.75rem 0 .6rem;}
+h4{font-size:.9rem;font-weight:500;color:var(--text2);margin:1.25rem 0 .4rem;letter-spacing:.03em;text-transform:uppercase;font-family:var(--mono);}
+p{color:var(--text2);margin-bottom:.9rem;font-weight:300;font-size:.95rem;}
+a{color:var(--teal);text-decoration:none;}
+a:hover{text-decoration:underline;}
+strong{color:var(--text);font-weight:500;}
+ul,ol{color:var(--text2);padding-left:1.5rem;margin-bottom:.9rem;font-size:.95rem;font-weight:300;}
+li{margin-bottom:.35rem;}
+li strong{color:var(--text);}
+hr{border:none;border-top:1px solid var(--border);margin:2rem 0;}
+
+/* ── Hero ── */
+.hero{margin-bottom:2.5rem;}
+.hero-subtitle{font-size:1.05rem;color:var(--text2);font-weight:300;max-width:620px;margin-bottom:1.25rem;line-height:1.8;}
+.badges{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.75rem;}
+.badge{
+  display:inline-flex;align-items:center;gap:.35rem;
+  font-family:var(--mono);font-size:.7rem;font-weight:500;
+  padding:.3rem .7rem;border-radius:5px;border:1px solid;letter-spacing:.03em;
+}
+.badge-teal{color:var(--teal);border-color:var(--teal3);background:var(--teal-dim);}
+.badge-amber{color:var(--amber);border-color:#7a4f00;background:var(--amber-dim);}
+.badge-purple{color:var(--purple);border-color:#4a3880;background:#0d0820;}
+.badge-blue{color:var(--blue);border-color:#1a4a8a;background:var(--blue-dim);}
+
+/* ── Callout boxes ── */
+.callout{border-radius:var(--radius);padding:1rem 1.25rem;margin:1.25rem 0;font-size:.88rem;font-weight:400;border-left:3px solid;line-height:1.7;}
+.callout-teal{background:var(--teal-dim);border-color:var(--teal);color:var(--teal);}
+.callout-amber{background:var(--amber-dim);border-color:var(--amber);color:var(--amber);}
+.callout-red{background:var(--red-dim);border-color:var(--red);color:var(--red);}
+.callout-blue{background:var(--blue-dim);border-color:var(--blue);color:var(--blue);}
+.callout strong{color:inherit;}
+.callout p{color:inherit;margin:0;font-weight:400;}
+
+/* ── Code ── */
+pre[class*="language-"]{
+  background:var(--bg3)!important;border:1px solid var(--border);border-radius:var(--radius-lg);
+  padding:1.25rem 1.5rem!important;margin:1rem 0 1.25rem;overflow-x:auto;font-size:.8rem;
+  line-height:1.65;
+}
+code[class*="language-"]{font-family:var(--mono)!important;}
+:not(pre)>code{
+  font-family:var(--mono);font-size:.8rem;background:var(--bg3);color:var(--teal);
+  border:1px solid var(--border);border-radius:4px;padding:.1em .4em;
+}
+.code-label{
+  font-family:var(--mono);font-size:.7rem;color:var(--text3);background:var(--bg4);
+  border:1px solid var(--border);border-bottom:none;border-radius:var(--radius) var(--radius) 0 0;
+  padding:.35rem .9rem;display:inline-block;margin-bottom:-1px;position:relative;z-index:1;
+}
+
+/* ── Step list ── */
+.step-list{counter-reset:step;list-style:none;padding:0;margin:1rem 0 1.5rem;}
+.step-list>li{
+  counter-increment:step;display:flex;gap:1rem;margin-bottom:1.5rem;
+}
+.step-list>li::before{
+  content:counter(step);min-width:28px;height:28px;background:var(--teal-dim);color:var(--teal);
+  border:1px solid var(--teal3);border-radius:50%;font-family:var(--mono);font-size:.75rem;font-weight:500;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem;
+}
+.step-content h4{margin:0 0 .35rem;font-size:.92rem;color:var(--text);text-transform:none;letter-spacing:0;font-family:var(--sans);}
+.step-content p{margin:0;}
+
+/* ── Tables ── */
+.table-wrap{overflow-x:auto;margin:1rem 0 1.5rem;border-radius:var(--radius-lg);border:1px solid var(--border);}
+table{width:100%;border-collapse:collapse;font-size:.84rem;}
+thead tr{background:var(--bg3);}
+th{text-align:left;padding:.75rem 1rem;font-weight:500;color:var(--text);font-family:var(--mono);font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;border-bottom:1px solid var(--border);}
+td{padding:.65rem 1rem;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:var(--bg3);}
+.tag{display:inline-block;font-size:.7rem;font-family:var(--mono);padding:.15rem .5rem;border-radius:4px;font-weight:500;}
+.tag-yes{background:var(--red-dim);color:var(--red);border:1px solid #5a1010;}
+.tag-no{background:var(--bg4);color:var(--text3);border:1px solid var(--border);}
+.tag-teal{background:var(--teal-dim);color:var(--teal);border:1px solid var(--teal3);}
+.tag-amber{background:var(--amber-dim);color:var(--amber);border:1px solid #7a4f00;}
+.tag-blue{background:var(--blue-dim);color:var(--blue);border:1px solid #1a4a8a;}
+.tag-purple{background:#0d0820;color:var(--purple);border:1px solid #4a3880;}
+.price{font-family:var(--mono);color:var(--teal);font-weight:500;}
+
+/* ── Architecture diagram ── */
+.arch-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;margin:1.25rem 0 1.75rem;overflow-x:auto;}
+
+/* ── Module cards ── */
+.module-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin:1rem 0 1.5rem;}
+.module-card{
+  background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);
+  padding:1.1rem 1.25rem;transition:border-color .2s;
+}
+.module-card:hover{border-color:var(--border2);}
+.module-card .icon{font-size:1.3rem;margin-bottom:.6rem;}
+.module-card h4{font-family:var(--mono);font-size:.78rem;color:var(--teal);text-transform:none;letter-spacing:0;margin-bottom:.35rem;}
+.module-card p{font-size:.82rem;margin:0;color:var(--text3);}
+
+/* ── State field cards ── */
+.field-list{margin:1rem 0 1.5rem;}
+.field-row{display:flex;gap:.75rem;padding:.7rem 0;border-bottom:1px solid var(--border);align-items:baseline;}
+.field-row:last-child{border-bottom:none;}
+.field-name{font-family:var(--mono);font-size:.8rem;color:var(--teal);min-width:180px;flex-shrink:0;}
+.field-type{font-family:var(--mono);font-size:.75rem;color:var(--purple);min-width:120px;flex-shrink:0;}
+.field-desc{font-size:.82rem;color:var(--text3);}
+
+/* ── Flow diagram inline ── */
+.flow-step{
+  display:flex;gap:1rem;align-items:flex-start;margin-bottom:1rem;
+  padding:1rem 1.25rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);
+}
+.flow-num{
+  width:32px;height:32px;min-width:32px;background:var(--bg3);border:1px solid var(--border2);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:.75rem;color:var(--teal);font-weight:500;
+}
+.flow-body h4{font-size:.9rem;color:var(--text);margin:0 0 .3rem;font-family:var(--sans);text-transform:none;letter-spacing:0;}
+.flow-body p{font-size:.83rem;margin:0;color:var(--text3);}
+.flow-arrow{text-align:center;color:var(--text3);font-size:1.1rem;margin:-.2rem 0;}
+
+/* ── Safety loop diagram ── */
+.safety-diagram{
+  background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);
+  padding:1.5rem;margin:1.25rem 0 1.5rem;
+}
+
+/* ── Config table ── */
+.env-table td:first-child{font-family:var(--mono);font-size:.78rem;color:var(--amber);}
+.env-table td:nth-child(2){font-family:var(--mono);font-size:.78rem;color:var(--teal);}
+
+/* ── TOC anchor offset ── */
+[id]{scroll-margin-top:2rem;}
+
+/* ── Footer ── */
+.footer{margin-top:4rem;padding-top:2rem;border-top:1px solid var(--border);text-align:center;font-size:.8rem;color:var(--text3);}
+</style>
+</head>
+<body>
+
+<!-- ══════════ SIDEBAR ══════════ -->
+<nav id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">🏥</div>
+    <h2>DiagBot</h2>
+    <p>Developer Documentation v1.0</p>
+  </div>
+
+  <span class="nav-section">Getting Started</span>
+  <a href="#overview"   class="nav-link active">Overview</a>
+  <a href="#install"    class="nav-link">Installation</a>
+  <a href="#quickstart" class="nav-link">Quick start</a>
+
+  <span class="nav-section">Architecture</span>
+  <a href="#architecture"  class="nav-link">System architecture</a>
+  <a href="#graph-topology" class="nav-link">Graph topology</a>
+  <a href="#data-flow"      class="nav-link">Data flow</a>
+
+  <span class="nav-section">Modules</span>
+  <a href="#schema"   class="nav-link">schema.py</a>
+  <a href="#database" class="nav-link">database.py</a>
+  <a href="#tools"    class="nav-link">tools.py</a>
+  <a href="#main"     class="nav-link">main.py</a>
+
+  <span class="nav-section">Core Concepts</span>
+  <a href="#safety-loop"       class="nav-link">Safety loop</a>
+  <a href="#agentic-reasoning" class="nav-link">Agentic reasoning</a>
+  <a href="#rag"               class="nav-link">RAG pipeline</a>
+
+  <span class="nav-section">Reference</span>
+  <a href="#test-catalog"  class="nav-link">Test catalog</a>
+  <a href="#configuration" class="nav-link">Configuration</a>
+  <a href="#cli"           class="nav-link">CLI usage</a>
+  <a href="#testing"       class="nav-link">Testing</a>
+  <a href="#errors"        class="nav-link">Error handling</a>
+  <a href="#roadmap"       class="nav-link">Roadmap</a>
+</nav>
+
+<!-- ══════════ MAIN ══════════ -->
+<main id="main">
+
+<!-- ─── HERO ─── -->
+<section class="hero" id="overview">
+  <h1>DiagBot</h1>
+  <p class="hero-subtitle">
+    A production-ready Agentic AI Orchestrator for Bangladeshi diagnostic centers — built on
+    <strong>LangGraph</strong>, <strong>ChromaDB</strong>, and <strong>SQLite</strong>.
+    Handles multi-turn conversations for test inquiries, preparation guidance,
+    appointment booking, and report status tracking with a hard-wired safety loop
+    that cannot be bypassed.
+  </p>
+  <div class="badges">
+    <span class="badge badge-teal">Python 3.11+</span>
+    <span class="badge badge-teal">LangGraph 0.2+</span>
+    <span class="badge badge-amber">LangChain 0.3+</span>
+    <span class="badge badge-purple">ChromaDB 0.5+</span>
+    <span class="badge badge-blue">Claude Sonnet 4</span>
+    <span class="badge badge-teal">MIT License</span>
+  </div>
+
+  <div class="callout callout-teal">
+    <strong>What makes DiagBot different?</strong>
+    <p>The preparation safety loop is enforced at the <em>graph edge level</em>, not in a prompt.
+    No appointment for a fasting test can be written to the database until the patient has
+    explicitly acknowledged the preparation instructions — regardless of what the user sends.</p>
+  </div>
+</section>
+
+<hr/>
+
+<!-- ─── INSTALLATION ─── -->
+<section id="install">
+  <h2>Installation</h2>
+  <h3>Prerequisites</h3>
+  <ul>
+    <li><strong>Python 3.11 or higher</strong> — type hints and async features require it</li>
+    <li><strong>pip 23+</strong> — for dependency resolution</li>
+    <li><strong>Google API key</strong> — get one at <a href="https://makersuite.google.com/app/apikey" target="_blank">makersuite.google.com</a></li>
+    <li>~500 MB disk space for ChromaDB ONNX embedding model (downloaded on first run)</li>
+    <li>Internet connection for first run only (model caching)</li>
+  </ul>
+
+  <h3>Step-by-step setup</h3>
+  <ol class="step-list">
+    <li>
+      <div class="step-content">
+        <h4>Clone the repository</h4>
+        <p>Get the source code onto your machine.</p>
+      </div>
+    </li>
+  </ol>
+  <div class="code-label">bash</div>
+  <pre><code class="language-bash">git clone https://github.com/your-org/diagbot.git
+cd diagbot</code></pre>
+
+  <ol class="step-list" start="2">
+    <li>
+      <div class="step-content">
+        <h4>Create and activate a virtual environment</h4>
+        <p>Isolates DiagBot's dependencies from your system Python.</p>
+      </div>
+    </li>
+  </ol>
+  <div class="code-label">bash — Linux / macOS</div>
+  <pre><code class="language-bash">python -m venv .venv
+source .venv/bin/activate</code></pre>
+  <div class="code-label">powershell — Windows</div>
+  <pre><code class="language-powershell">python -m venv .venv
+.venv\Scripts\Activate.ps1</code></pre>
+
+  <ol class="step-list" start="3">
+    <li>
+      <div class="step-content">
+        <h4>Install all dependencies</h4>
+        <p>This installs LangGraph, LangChain, ChromaDB, and all supporting packages.</p>
+      </div>
+    </li>
+  </ol>
+  <div class="code-label">bash</div>
+  <pre><code class="language-bash">pip install -r requirements.txt</code></pre>
+
+  <div class="callout callout-amber">
+    <strong>First install note:</strong> ChromaDB will download a lightweight ONNX sentence-embedding model (~100 MB) on first run. This is cached in <code>~/.cache/chroma/</code> and only happens once.
+  </div>
+
+  <ol class="step-list" start="4">
+    <li>
+      <div class="step-content">
+        <h4>Configure your API key</h4>
+        <p>Copy the environment template and fill in your Google key.</p>
+      </div>
+    </li>
+  </ol>
+  <div class="code-label">bash</div>
+  <pre><code class="language-bash">cp .env.example .env
+# Open .env in your editor and set GOOGLE_API_KEY=...</code></pre>
+
+  <div class="code-label">.env</div>
+  <pre><code class="language-bash">GOOGLE_API_KEY=your-google-api-key-here
+# Optional overrides:
+# DIAGBOT_MODEL=gemini-1.5-pro
+# LOG_LEVEL=DEBUG</code></pre>
+
+  <ol class="step-list" start="5">
+    <li>
+      <div class="step-content">
+        <h4>Run DiagBot</h4>
+        <p>Databases are created automatically on first launch.</p>
+      </div>
+    </li>
+  </ol>
+  <div class="code-label">bash</div>
+  <pre><code class="language-bash">python main.py</code></pre>
+
+  <h3>Full dependency list</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Package</th><th>Version</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td><code>langchain</code></td><td>≥ 0.3.0</td><td>LLM abstractions, tool calling interface</td></tr>
+        <tr><td><code>langchain-core</code></td><td>≥ 0.3.0</td><td>Messages, tools, reducers</td></tr>
+        <tr><td><code>langchain-google-genai</code></td><td>≥ 0.3.0</td><td>Gemini API integration</td></tr>
+        <tr><td><code>langgraph</code></td><td>≥ 0.2.0</td><td>Stateful graph orchestration engine</td></tr>
+        <tr><td><code>chromadb</code></td><td>≥ 0.5.0</td><td>Local vector store for RAG</td></tr>
+        <tr><td><code>httpx</code></td><td>≥ 0.27.0</td><td>HTTP client</td></tr>
+        <tr><td><code>python-dotenv</code></td><td>≥ 1.0.0</td><td><code>.env</code> file support</td></tr>
+        <tr><td><code>pydantic</code></td><td>≥ 2.0.0</td><td>Data validation (used internally by LangChain)</td></tr>
+        <tr><td><code>sqlite3</code></td><td>stdlib</td><td>Appointment database — no install needed</td></tr>
+        <tr><td><code>pytest</code></td><td>≥ 8.0.0</td><td>Test runner</td></tr>
+        <tr><td><code>pytest-asyncio</code></td><td>≥ 0.23.0</td><td>Async test support</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ─── QUICK START ─── -->
+<section id="quickstart">
+  <h2>Quick start</h2>
+  <p>Once installed and configured, here is a representative multi-turn session showing all three core flows.</p>
+
+  <h3>Test inquiry flow</h3>
+  <div class="code-label">cli session</div>
+  <pre><code class="language-text">You: lipid profile test er price koto?
+
+DiagBot: ### Lipid Profile  (লিপিড প্রোফাইল)
+  🆔 Catalog ID  : `lipid_001`
+  🏷️  Category   : Biochemistry
+  💰 Price       : **1200 BDT**
+  ⏱️  Turnaround : 6–8 hours
+  ⚠️  Fasting required: 12 hours
+  📝 Preparation : 12 hours fasting required. Drink only plain water.
+                   Avoid alcohol for at least 24 hours before the test.</code></pre>
+
+  <h3>Booking flow with safety loop</h3>
+  <div class="code-label">cli session</div>
+  <pre><code class="language-text">You: I want to book a lipid profile test
+
+DiagBot: ⚠️ Before we proceed with booking, please note the preparation
+requirements for the Lipid Profile test:
+
+  • **Lipid Profile**: 12 hours fasting required. Drink only plain water.
+    Avoid alcohol for at least 24 hours before the test.
+
+Can you please confirm that you understand and will follow these
+preparation instructions?
+
+You: yes, I understand
+
+DiagBot: ✅ Thank you for confirming! Your preparation instructions have been noted.
+Let's proceed with booking. Please provide your full name and phone number.
+
+You: My name is Rahela Begum, phone 01711223344
+
+DiagBot: ✅ **Appointment Confirmed!**
+
+  🆔 **Invoice ID**   : `DX-F3K9P2`
+  👤 **Patient Name** : Rahela Begum
+  📞 **Phone**        : 01711223344
+  📅 **Date**         : 2025-06-10
+  🧪 **Booked Tests** :
+    • Lipid Profile — **1200 BDT**
+  💰 **Total Cost**   : **1200 BDT**</code></pre>
+
+  <h3>Report status check</h3>
+  <div class="code-label">cli session</div>
+  <pre><code class="language-text">You: Check my report status, invoice DX-DEMO02
+
+DiagBot: 🔬 **Report Status for `DX-DEMO02`**
+
+  👤 **Patient**    : Fatema Khanam
+  📅 **Appointment**: 2025-05-03
+  🔖 **Status**     : **Processing**
+  🧪 **Tests**      :
+    • Lipid Profile
+
+Your sample is currently being analysed. Please check back later.</code></pre>
+</section>
+
+<hr/>
+
+<!-- ─── ARCHITECTURE ─── -->
+<section id="architecture">
+  <h2>System architecture</h2>
+  <p>DiagBot is composed of four Python modules and two persistence back-ends, wired together by a LangGraph <code>StateGraph</code>. The graph is the single orchestration layer — all routing decisions happen inside it.</p>
+
+  <div class="arch-wrap">
+    <svg width="100%" viewBox="0 0 820 520" xmlns="http://www.w3.org/2000/svg" role="img">
+      <title>DiagBot system architecture</title>
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+
+      <!-- Patient -->
+      <rect x="20" y="220" width="110" height="44" rx="8" fill="#001f19" stroke="#007a5e" stroke-width="1"/>
+      <text x="75" y="239" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="13" fill="#00d4aa" font-weight="500">Patient</text>
+      <text x="75" y="256" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#007a5e">CLI / API</text>
+      <line x1="130" y1="242" x2="158" y2="242" stroke="#007a5e" stroke-width="1" marker-end="url(#arr)"/>
+
+      <!-- LangGraph box outer -->
+      <rect x="160" y="30" width="490" height="440" rx="14" fill="none" stroke="#1e3147" stroke-width="1" stroke-dasharray="6 3"/>
+      <text x="406" y="60" text-anchor="middle" font-family="'Syne',sans-serif" font-size="11" fill="#4e7a9e" font-weight="600" letter-spacing="1">LANGGRAPH STATE GRAPH</text>
+
+      <!-- intake_node -->
+      <rect x="292" y="85" width="226" height="50" rx="8" fill="#040f1f" stroke="#1a4a8a" stroke-width="1"/>
+      <text x="404" y="107" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="13" fill="#4da6ff" font-weight="500">intake_node</text>
+      <text x="404" y="124" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#1a4a8a">intent classifier</text>
+
+      <!-- Arrows down from intake -->
+      <line x1="320" y1="135" x2="215" y2="195" stroke="#264260" stroke-width="1" marker-end="url(#arr)"/>
+      <line x1="404" y1="135" x2="404" y2="195" stroke="#264260" stroke-width="1" marker-end="url(#arr)"/>
+      <line x1="488" y1="135" x2="588" y2="195" stroke="#264260" stroke-width="1" marker-end="url(#arr)"/>
+
+      <!-- Labels -->
+      <text x="245" y="172" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#4e7a9e">inquiry</text>
+      <text x="424" y="172" font-family="'JetBrains Mono',monospace" font-size="9" fill="#4e7a9e">booking</text>
+      <text x="546" y="172" font-family="'JetBrains Mono',monospace" font-size="9" fill="#4e7a9e">status</text>
+
+      <!-- rag_node -->
+      <rect x="170" y="197" width="130" height="50" rx="8" fill="#0d0820" stroke="#4a3880" stroke-width="1"/>
+      <text x="234" y="219" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="12" fill="#a78bfa" font-weight="500">rag_node</text>
+      <text x="234" y="236" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#4a3880">ChromaDB · RAG</text>
+
+      <!-- instruction_node -->
+      <rect x="340" y="197" width="130" height="50" rx="8" fill="#1f0808" stroke="#5a1010" stroke-width="1.5"/>
+      <text x="406" y="216" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="11.5" fill="#ff5c5c" font-weight="500">instruction_node</text>
+      <text x="406" y="234" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#7a2020">⚠ safety loop</text>
+
+      <!-- booking_node -->
+      <rect x="340" y="295" width="130" height="50" rx="8" fill="#001f19" stroke="#007a5e" stroke-width="1"/>
+      <text x="406" y="317" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="12" fill="#00d4aa" font-weight="500">booking_node</text>
+      <text x="406" y="334" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#007a5e">appointment</text>
+
+      <!-- status_node -->
+      <rect x="514" y="197" width="120" height="50" rx="8" fill="#040f1f" stroke="#1a4a8a" stroke-width="1"/>
+      <text x="574" y="219" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="12" fill="#4da6ff" font-weight="500">status_node</text>
+      <text x="574" y="236" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#1a4a8a">report tracker</text>
+
+      <!-- Arrow: instruction → booking -->
+      <line x1="406" y1="247" x2="406" y2="294" stroke="#5a1010" stroke-width="1" marker-end="url(#arr)"/>
+      <text x="416" y="275" font-family="'JetBrains Mono',monospace" font-size="9" fill="#7a2020">confirmed</text>
+
+      <!-- ToolNode -->
+      <rect x="290" y="385" width="228" height="56" rx="8" fill="#0c1826" stroke="#264260" stroke-width="1"/>
+      <text x="404" y="407" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="12" fill="#8baec8" font-weight="500">ToolNode  (LangGraph built-in)</text>
+      <text x="320" y="428" font-family="'JetBrains Mono',monospace" font-size="10" fill="#4e7a9e">search_tests</text>
+      <text x="390" y="428" font-family="'JetBrains Mono',monospace" font-size="10" fill="#4e7a9e">|</text>
+      <text x="402" y="428" font-family="'JetBrains Mono',monospace" font-size="10" fill="#4e7a9e">book_appt</text>
+      <text x="466" y="428" font-family="'JetBrains Mono',monospace" font-size="10" fill="#4e7a9e">|</text>
+      <text x="478" y="428" font-family="'JetBrains Mono',monospace" font-size="10" fill="#4e7a9e">check_status</text>
+
+      <!-- Arrows to ToolNode -->
+      <path d="M234 247 Q234 370 292 413" fill="none" stroke="#264260" stroke-width="1" marker-end="url(#arr)"/>
+      <path d="M406 345 L406 384" fill="none" stroke="#264260" stroke-width="1" marker-end="url(#arr)"/>
+      <path d="M574 247 Q574 370 518 413" fill="none" stroke="#264260" stroke-width="1" marker-end="url(#arr)"/>
+
+      <!-- Storage layer -->
+      <rect x="680" y="140" width="120" height="56" rx="8" fill="#0c1826" stroke="#1e3147" stroke-width="1"/>
+      <text x="740" y="161" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="11.5" fill="#8baec8" font-weight="500">ChromaDB</text>
+      <text x="740" y="178" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#4e7a9e">test knowledge</text>
+      <text x="740" y="191" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#4e7a9e">base (RAG)</text>
+
+      <rect x="680" y="230" width="120" height="44" rx="8" fill="#0c1826" stroke="#1e3147" stroke-width="1"/>
+      <text x="740" y="252" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="11.5" fill="#8baec8" font-weight="500">SQLite</text>
+      <text x="740" y="268" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#4e7a9e">appointments</text>
+
+      <!-- DB connections -->
+      <line x1="652" y1="235" x2="679" y2="185" stroke="#1e3147" stroke-width="1" stroke-dasharray="4 2" marker-end="url(#arr)"/>
+      <line x1="652" y1="320" x2="679" y2="252" stroke="#1e3147" stroke-width="1" stroke-dasharray="4 2" marker-end="url(#arr)"/>
+
+      <!-- LLM Claude -->
+      <rect x="680" y="355" width="120" height="56" rx="8" fill="#0d0820" stroke="#4a3880" stroke-width="1"/>
+      <text x="740" y="377" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="11.5" fill="#a78bfa" font-weight="500">Claude</text>
+      <text x="740" y="394" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#4a3880">Sonnet 4</text>
+      <text x="740" y="407" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#4a3880">LLM backbone</text>
+      <path d="M520 413 Q600 413 679 400" fill="none" stroke="#4a3880" stroke-width="1" stroke-dasharray="4 2" marker-end="url(#arr)"/>
+    </svg>
+  </div>
+
+  <div class="module-grid">
+    <div class="module-card">
+      <div class="icon">📐</div>
+      <h4>schema.py</h4>
+      <p>Central <code>TypedDict</code> state definitions. Everything the graph knows about the current session lives here.</p>
+    </div>
+    <div class="module-card">
+      <div class="icon">🗄️</div>
+      <h4>database.py</h4>
+      <p>SQLite appointment store + ChromaDB vector knowledge base. Auto-initialises on first run.</p>
+    </div>
+    <div class="module-card">
+      <div class="icon">🔧</div>
+      <h4>tools.py</h4>
+      <p>Three async <code>@tool</code> functions: RAG search, booking engine, and report status tracker.</p>
+    </div>
+    <div class="module-card">
+      <div class="icon">🕸️</div>
+      <h4>main.py</h4>
+      <p>LangGraph <code>StateGraph</code> with 8 nodes, 6 routing functions, and the interactive CLI runner.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── GRAPH TOPOLOGY ─── -->
+<section id="graph-topology">
+  <h2>Graph topology</h2>
+  <p>The graph has eight nodes connected by conditional edges. Every patient message enters at <code>intake_node</code> and exits at <code>END</code> — the path between them depends entirely on the state flags accumulated during the conversation.</p>
+
+  <div class="arch-wrap">
+    <svg width="100%" viewBox="0 0 820 560" xmlns="http://www.w3.org/2000/svg" role="img">
+      <title>DiagBot LangGraph node topology</title>
+      <defs>
+        <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+
+      <!-- START -->
+      <circle cx="404" cy="36" r="16" fill="#001f19" stroke="#007a5e" stroke-width="1.5"/>
+      <text x="404" y="41" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#00d4aa">START</text>
+      <line x1="404" y1="53" x2="404" y2="78" stroke="#007a5e" stroke-width="1.2" marker-end="url(#arr2)"/>
+
+      <!-- intake -->
+      <rect x="294" y="80" width="220" height="48" rx="8" fill="#040f1f" stroke="#1a4a8a" stroke-width="1.2"/>
+      <text x="404" y="101" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="13" fill="#4da6ff" font-weight="500">intake_node</text>
+      <text x="404" y="117" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#1a4a8a">classify intent · extract invoice_id</text>
+
+      <!-- Route arrows from intake -->
+      <path d="M294 104 Q160 104 160 170" fill="none" stroke="#264260" stroke-width="1" marker-end="url(#arr2)"/>
+      <path d="M360 128 Q340 158 320 170" fill="none" stroke="#264260" stroke-width="1" marker-end="url(#arr2)"/>
+      <path d="M448 128 Q468 158 490 170" fill="none" stroke="#264260" stroke-width="1" marker-end="url(#arr2)"/>
+      <path d="M514 104 Q650 104 650 170" fill="none" stroke="#264260" stroke-width="1" marker-end="url(#arr2)"/>
+
+      <!-- Route labels -->
+      <text x="135" y="142" font-family="'JetBrains Mono',monospace" font-size="9" fill="#4e7a9e">inquiry</text>
+      <text x="318" y="152" font-family="'JetBrains Mono',monospace" font-size="9" fill="#4e7a9e">booking+prep</text>
+      <text x="452" y="152" font-family="'JetBrains Mono',monospace" font-size="9" fill="#4e7a9e">booking</text>
+      <text x="625" y="142" font-family="'JetBrains Mono',monospace" font-size="9" fill="#4e7a9e">status</text>
+
+      <!-- rag_node -->
+      <rect x="100" y="172" width="120" height="48" rx="8" fill="#0d0820" stroke="#4a3880" stroke-width="1"/>
+      <text x="160" y="193" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="12" fill="#a78bfa" font-weight="500">rag_node</text>
+      <text x="160" y="210" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#4a3880">RAG · search</text>
+
+      <!-- instruction_node -->
+      <rect x="260" y="172" width="140" height="48" rx="8" fill="#1f0808" stroke="#8a2020" stroke-width="1.5"/>
+      <text x="330" y="190" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="12" fill="#ff5c5c" font-weight="500">instruction_node</text>
+      <text x="330" y="208" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#7a2020">⚠ safety gate</text>
+
+      <!-- booking_node -->
+      <rect x="430" y="172" width="120" height="48" rx="8" fill="#001f19" stroke="#007a5e" stroke-width="1"/>
+      <text x="490" y="193" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="12" fill="#00d4aa" font-weight="500">booking_node</text>
+      <text x="490" y="210" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#007a5e">book_appointment</text>
+
+      <!-- status_node -->
+      <rect x="590" y="172" width="120" height="48" rx="8" fill="#040f1f" stroke="#1a4a8a" stroke-width="1"/>
+      <text x="650" y="193" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="12" fill="#4da6ff" font-weight="500">status_node</text>
+      <text x="650" y="210" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#1a4a8a">check_status</text>
+
+      <!-- general_node -->
+      <rect x="720" y="172" width="90" height="48" rx="8" fill="#0c1826" stroke="#264260" stroke-width="1"/>
+      <text x="765" y="193" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="11" fill="#8baec8" font-weight="500">general</text>
+      <text x="765" y="210" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#264260">_node</text>
+
+      <!-- intake to general -->
+      <path d="M514 128 Q765 148 765 171" fill="none" stroke="#264260" stroke-width="1" stroke-dasharray="4 2" marker-end="url(#arr2)"/>
+
+      <!-- instruction → booking (confirmed) -->
+      <path d="M330 220 Q330 270 440 296" fill="none" stroke="#5a1010" stroke-width="1.2" stroke-dasharray="5 2" marker-end="url(#arr2)"/>
+      <text x="318" y="262" font-family="'JetBrains Mono',monospace" font-size="9" fill="#7a2020">prep_confirmed=True</text>
+
+      <!-- ToolNode -->
+      <rect x="260" y="340" width="300" height="56" rx="8" fill="#0c1826" stroke="#264260" stroke-width="1"/>
+      <text x="410" y="362" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="12" fill="#8baec8" font-weight="500">ToolNode</text>
+      <text x="330" y="383" font-family="'JetBrains Mono',monospace" font-size="10" fill="#4e7a9e">search</text>
+      <text x="372" y="383" font-family="'JetBrains Mono',monospace" font-size="10" fill="#264260">|</text>
+      <text x="383" y="383" font-family="'JetBrains Mono',monospace" font-size="10" fill="#4e7a9e">book</text>
+      <text x="408" y="383" font-family="'JetBrains Mono',monospace" font-size="10" fill="#264260">|</text>
+      <text x="418" y="383" font-family="'JetBrains Mono',monospace" font-size="10" fill="#4e7a9e">check_status</text>
+      <text x="480" y="383" font-family="'JetBrains Mono',monospace" font-size="10" fill="#264260">|</text>
+      <text x="490" y="383" font-family="'JetBrains Mono',monospace" font-size="10" fill="#4e7a9e">sync_state</text>
+
+      <!-- Nodes to ToolNode -->
+      <path d="M160 220 Q160 300 262 368" fill="none" stroke="#264260" stroke-width="1" marker-end="url(#arr2)"/>
+      <path d="M490 220 L490 300 Q490 340 408 339" fill="none" stroke="#264260" stroke-width="1" marker-end="url(#arr2)"/>
+      <path d="M650 220 Q650 300 558 368" fill="none" stroke="#264260" stroke-width="1" marker-end="url(#arr2)"/>
+
+      <!-- ToolNode to END -->
+      <line x1="410" y1="397" x2="410" y2="470" stroke="#264260" stroke-width="1.2" marker-end="url(#arr2)"/>
+      <text x="420" y="440" font-family="'JetBrains Mono',monospace" font-size="9" fill="#4e7a9e">result → node</text>
+
+      <!-- END -->
+      <circle cx="410" cy="484" r="16" fill="#0c1826" stroke="#264260" stroke-width="1.5"/>
+      <text x="410" y="489" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#4e7a9e">END</text>
+
+      <!-- general → END direct -->
+      <path d="M765 220 Q765 484 428 484" fill="none" stroke="#264260" stroke-width="1" stroke-dasharray="4 2" marker-end="url(#arr2)"/>
+    </svg>
+  </div>
+
+  <div class="callout callout-red">
+    <strong>Safety invariant:</strong> The path from <code>intake_node</code> to <code>booking_node</code> via the direct "booking" edge is only available when <code>selected_tests</code> contains no fasting tests OR <code>prep_confirmed = True</code>. The <code>instruction_node</code> path is taken otherwise. This is a conditional edge function — not a prompt instruction.
+  </div>
+</section>
+
+<!-- ─── DATA FLOW ─── -->
+<section id="data-flow">
+  <h2>Data flow</h2>
+  <p>A single patient message triggers the following sequence of operations inside the graph:</p>
+
+  <div class="flow-step">
+    <div class="flow-num">1</div>
+    <div class="flow-body">
+      <h4>Message appended</h4>
+      <p>The user's text becomes a <code>HumanMessage</code> and is appended to <code>state.messages</code> via the <code>add_messages</code> reducer. The graph never replaces the message list — it only grows.</p>
+    </div>
+  </div>
+  <div class="flow-arrow">↓</div>
+  <div class="flow-step">
+    <div class="flow-num">2</div>
+    <div class="flow-body">
+      <h4>intake_node runs</h4>
+      <p>Keyword heuristics scan the message for intent signals. If ambiguous, a lightweight LLM call returns a single-token classification. An invoice ID regex extracts any <code>DX-XXXXXX</code> pattern into <code>state.invoice_id</code>.</p>
+    </div>
+  </div>
+  <div class="flow-arrow">↓</div>
+  <div class="flow-step">
+    <div class="flow-num">3</div>
+    <div class="flow-body">
+      <h4>Conditional router dispatches</h4>
+      <p><code>route_from_intake()</code> reads <code>state.intent</code>, <code>state.selected_tests</code>, and <code>state.prep_confirmed</code> to decide the next node. This is a pure Python function with no LLM involvement.</p>
+    </div>
+  </div>
+  <div class="flow-arrow">↓</div>
+  <div class="flow-step">
+    <div class="flow-num">4</div>
+    <div class="flow-body">
+      <h4>Specialist node invokes LLM</h4>
+      <p>The LLM receives the full conversation history plus a specialist system prompt. It decides autonomously whether to call a tool or respond directly. If tools are called, an <code>AIMessage</code> with <code>tool_calls</code> is returned.</p>
+    </div>
+  </div>
+  <div class="flow-arrow">↓</div>
+  <div class="flow-step">
+    <div class="flow-num">5</div>
+    <div class="flow-body">
+      <h4>ToolNode executes</h4>
+      <p>LangGraph's built-in <code>ToolNode</code> runs each tool call asynchronously. Results are appended as <code>ToolMessage</code> objects. The next routing function sees both the tool call and its result.</p>
+    </div>
+  </div>
+  <div class="flow-arrow">↓</div>
+  <div class="flow-step">
+    <div class="flow-num">6</div>
+    <div class="flow-body">
+      <h4>sync_state_node reconciles</h4>
+      <p>Scans <code>ToolMessage</code> contents to extract structured data — confirmed invoice IDs, etc. — and merges them back into the typed state fields. No LLM is involved here.</p>
+    </div>
+  </div>
+  <div class="flow-arrow">↓</div>
+  <div class="flow-step">
+    <div class="flow-num">7</div>
+    <div class="flow-body">
+      <h4>State returned to caller</h4>
+      <p>The updated <code>DiagBotState</code> is returned to the session loop. The CLI runner prints the last <code>AIMessage</code> and feeds the same state object back into the next invocation.</p>
+    </div>
+  </div>
+</section>
+
+<hr/>
+
+<!-- ─── MODULE: SCHEMA ─── -->
+<section id="schema">
+  <h2>schema.py — State definitions</h2>
+  <p>This module defines the single source of truth that flows through every node in the graph. All fields are explicitly typed via <code>TypedDict</code>.</p>
+
+  <h3>DiagBotState</h3>
+  <p>The main state object. LangGraph passes this between nodes — each node receives the full state and returns a partial update dict. The graph merges updates using field-level reducers.</p>
+
+  <div class="field-list">
+    <div class="field-row">
+      <span class="field-name">messages</span>
+      <span class="field-type">List[BaseMessage]</span>
+      <span class="field-desc">Full conversation history. Uses the <code>add_messages</code> reducer — nodes append new messages, the graph merges automatically. Never replaced wholesale.</span>
+    </div>
+    <div class="field-row">
+      <span class="field-name">patient_info</span>
+      <span class="field-type">PatientInfo</span>
+      <span class="field-desc">Progressively collected name and phone. Optional keys — may be partially filled.</span>
+    </div>
+    <div class="field-row">
+      <span class="field-name">selected_tests</span>
+      <span class="field-type">List[str]</span>
+      <span class="field-desc">Catalog IDs of tests the patient is interested in (e.g. <code>["lipid_001", "cbc_001"]</code>).</span>
+    </div>
+    <div class="field-row">
+      <span class="field-name">prep_confirmed</span>
+      <span class="field-type">bool</span>
+      <span class="field-desc">Safety-loop gate. Booking is blocked for fasting tests until this is <code>True</code>. Only <code>instruction_node</code> can set it.</span>
+    </div>
+    <div class="field-row">
+      <span class="field-name">intent</span>
+      <span class="field-type">Optional[str]</span>
+      <span class="field-desc">Classified routing intent. One of: <code>"inquiry"</code>, <code>"booking"</code>, <code>"status"</code>, <code>"general"</code>.</span>
+    </div>
+    <div class="field-row">
+      <span class="field-name">pending_instructions</span>
+      <span class="field-type">Optional[str]</span>
+      <span class="field-desc">Preparation text awaiting patient acknowledgement. Set by <code>instruction_node</code>, cleared after confirmation.</span>
+    </div>
+    <div class="field-row">
+      <span class="field-name">invoice_id</span>
+      <span class="field-type">Optional[str]</span>
+      <span class="field-desc">Extracted or generated invoice reference (e.g. <code>"DX-F3K9P2"</code>). Used for status lookups.</span>
+    </div>
+    <div class="field-row">
+      <span class="field-name">error_message</span>
+      <span class="field-type">Optional[str]</span>
+      <span class="field-desc">Human-readable error from last failed validation. Cleared on success.</span>
+    </div>
+  </div>
+
+  <div class="code-label">schema.py — excerpt</div>
+  <pre><code class="language-python">class DiagBotState(TypedDict):
+    messages:             Annotated[List[BaseMessage], add_messages]
+    patient_info:         PatientInfo
+    selected_tests:       List[str]
+    prep_confirmed:       bool
+    intent:               Optional[str]
+    pending_instructions: Optional[str]
+    last_tool_result:     Optional[Dict[str, Any]]
+    invoice_id:           Optional[str]
+    error_message:        Optional[str]</code></pre>
+</section>
+
+<!-- ─── MODULE: DATABASE ─── -->
+<section id="database">
+  <h2>database.py — Persistence layer</h2>
+  <p>Manages two entirely separate storage back-ends. Both initialise automatically — no migrations, no manual setup needed.</p>
+
+  <h3>SQLite — Appointments</h3>
+  <p>A single-table SQLite database at <code>data/diagbot.db</code>. Created with WAL mode and foreign keys enabled for production reliability. Four demo rows are seeded on first run.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Column</th><th>Type</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><code>id</code></td><td>INTEGER PK</td><td>Auto-increment</td></tr>
+        <tr><td><code>invoice_id</code></td><td>TEXT UNIQUE</td><td>Format: <code>DX-XXXXXX</code> (6 alphanumeric chars)</td></tr>
+        <tr><td><code>patient_name</code></td><td>TEXT</td><td>Full name as provided</td></tr>
+        <tr><td><code>phone</code></td><td>TEXT</td><td>11-digit Bangladeshi mobile, leading zeros preserved</td></tr>
+        <tr><td><code>tests</code></td><td>TEXT</td><td>JSON array of catalog IDs: <code>["lipid_001","cbc_001"]</code></td></tr>
+        <tr><td><code>appointment_date</code></td><td>TEXT</td><td>ISO 8601 date: <code>YYYY-MM-DD</code></td></tr>
+        <tr><td><code>status</code></td><td>TEXT</td><td>One of: <code>Scheduled</code>, <code>Processing</code>, <code>Ready</code>, <code>Delayed</code></td></tr>
+        <tr><td><code>created_at</code></td><td>TEXT</td><td>UTC timestamp, auto-set by SQLite <code>datetime('now')</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>ChromaDB — Test knowledge base</h3>
+  <p>A persistent local vector store at <code>data/chroma_store/</code>. Uses ChromaDB's built-in ONNX embedding model — <strong>no external API key required</strong>. Each test is stored as a rich bilingual document string enabling semantic search in both English and Bangla.</p>
+
+  <div class="callout callout-amber">
+    <strong>Adding new tests:</strong> Append entries to <code>TEST_CATALOG</code> in <code>database.py</code>, then delete <code>data/chroma_store/</code> and restart. The collection will be re-indexed on next run.
+  </div>
+
+  <div class="code-label">database.py — document structure per test</div>
+  <pre><code class="language-python">doc = (
+    f"Test: {test['name']} | {test['name_bn']}\n"
+    f"Category: {test['category']}\n"
+    f"Description: {test['description']}\n"
+    f"Preparation: {test['preparation']}\n"
+    f"Price: {test['price_bdt']} BDT\n"
+    f"Turnaround: {test['turnaround']}\n"
+    f"Fasting required: {'Yes' if test['requires_fasting'] else 'No'}"
+)</code></pre>
+</section>
+
+<!-- ─── MODULE: TOOLS ─── -->
+<section id="tools">
+  <h2>tools.py — LangChain tools</h2>
+  <p>Three async <code>@tool</code> decorated functions that form the action layer. All are bound to the LLM via <code>.bind_tools()</code> — the agent decides when and how to call them.</p>
+
+  <h3>search_diagnostic_tests</h3>
+  <div class="code-label">signature</div>
+  <pre><code class="language-python">async def search_diagnostic_tests(query: str, top_k: int = 3) -> str</code></pre>
+  <ul>
+    <li>Performs cosine-similarity search against the ChromaDB collection</li>
+    <li>Accepts queries in <strong>English or Bangla</strong> — the ONNX embedding model handles both</li>
+    <li>Filters results with relevance score &lt; 0.25 to avoid low-quality matches</li>
+    <li>Returns formatted markdown with price (BDT), preparation, turnaround, and fasting flag</li>
+  </ul>
+
+  <h3>book_appointment</h3>
+  <div class="code-label">signature</div>
+  <pre><code class="language-python">async def book_appointment(
+    patient_name: str,
+    phone: str,
+    test_ids: List[str],
+    appointment_date: Optional[str] = None
+) -> str</code></pre>
+  <ul>
+    <li>Validates patient name (≥ 2 chars), phone (11-digit BD format: <code>01[3-9]\d{8}</code>), and catalog IDs</li>
+    <li>Generates a unique <code>DX-XXXXXX</code> invoice ID using <code>random.choices</code></li>
+    <li>Defaults <code>appointment_date</code> to the next working day (respects BD Friday skip)</li>
+    <li>Writes atomically to SQLite inside a context manager — partial writes cannot occur</li>
+    <li>Returns a full confirmation card including total cost in BDT</li>
+  </ul>
+
+  <div class="callout callout-red">
+    <strong>Guard:</strong> This tool should only be called when <code>prep_confirmed = True</code> for fasting tests. The graph's conditional edge enforces this, but the tool also has a defensive double-check inside <code>booking_node</code>.
+  </div>
+
+  <h3>check_report_status</h3>
+  <div class="code-label">signature</div>
+  <pre><code class="language-python">async def check_report_status(invoice_id: str) -> str</code></pre>
+  <ul>
+    <li>Normalises the invoice ID to uppercase before querying (case-insensitive)</li>
+    <li>Returns status badge, patient name, appointment date, and test list</li>
+    <li>Provides status-specific messaging: collection instructions for Ready, helpline for Delayed</li>
+    <li>Returns a clear not-found message if the invoice ID doesn't exist</li>
+  </ul>
+</section>
+
+<!-- ─── MODULE: MAIN ─── -->
+<section id="main">
+  <h2>main.py — Graph orchestrator</h2>
+  <p>Builds the LangGraph <code>StateGraph</code>, registers all nodes, defines conditional edges, and exposes a CLI runner. The graph is compiled once with <code>graph.compile()</code> and is then stateless between invocations — all session state lives in the <code>DiagBotState</code> dict passed by the caller.</p>
+
+  <h3>Node functions</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Node</th><th>LLM call?</th><th>Tool calls?</th><th>Responsibility</th></tr></thead>
+      <tbody>
+        <tr><td><code>intake_node</code></td><td>Conditional</td><td>No</td><td>Intent classification + invoice ID extraction</td></tr>
+        <tr><td><code>rag_node</code></td><td>Yes</td><td>May queue</td><td>Test inquiry via RAG tool</td></tr>
+        <tr><td><code>instruction_node</code></td><td>Yes</td><td>No</td><td>Deliver preparation instructions, await confirmation</td></tr>
+        <tr><td><code>booking_node</code></td><td>Yes</td><td>May queue</td><td>Collect missing info, invoke booking tool</td></tr>
+        <tr><td><code>status_node</code></td><td>Yes</td><td>May queue</td><td>Invoke status tool or prompt for invoice ID</td></tr>
+        <tr><td><code>general_node</code></td><td>Yes</td><td>No</td><td>Greetings and out-of-scope graceful handling</td></tr>
+        <tr><td><code>tools</code></td><td>No</td><td>Executes</td><td>Built-in ToolNode — runs all queued tool calls</td></tr>
+        <tr><td><code>sync_state_node</code></td><td>No</td><td>No</td><td>Post-tool state reconciliation</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Conditional edge functions</h3>
+  <div class="code-label">main.py — primary router</div>
+  <pre><code class="language-python">def route_from_intake(state: DiagBotState) -> str:
+    intent = state.get("intent", INTENT_GENERAL)
+    if intent == INTENT_INQUIRY:
+        return "rag_node"
+    if intent == INTENT_STATUS:
+        return "status_node"
+    if intent == INTENT_BOOKING:
+        catalog = {t["id"]: t for t in TEST_CATALOG}
+        selected = state.get("selected_tests", [])
+        needs_prep = any(
+            catalog.get(tid, {}).get("requires_fasting", False)
+            for tid in selected
+        )
+        if needs_prep and not state.get("prep_confirmed", False):
+            return "instruction_node"  # safety gate
+        return "booking_node"
+    return "general_node"</code></pre>
+</section>
+
+<hr/>
+
+<!-- ─── SAFETY LOOP ─── -->
+<section id="safety-loop">
+  <h2>The safety loop</h2>
+  <p>The preparation safety loop is DiagBot's most critical clinical feature. It enforces a hard architectural guarantee that cannot be bypassed by prompt injection or user trickery.</p>
+
+  <div class="safety-diagram">
+    <svg width="100%" viewBox="0 0 780 320" xmlns="http://www.w3.org/2000/svg" role="img">
+      <title>DiagBot safety loop flow</title>
+      <defs>
+        <marker id="arr3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+
+      <!-- User intent: booking -->
+      <rect x="20" y="128" width="120" height="44" rx="8" fill="#040f1f" stroke="#1a4a8a" stroke-width="1"/>
+      <text x="80" y="147" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="12" fill="#4da6ff" font-weight="500">User: book</text>
+      <text x="80" y="163" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#1a4a8a">intent=booking</text>
+      <line x1="140" y1="150" x2="168" y2="150" stroke="#264260" stroke-width="1" marker-end="url(#arr3)"/>
+
+      <!-- Decision diamond -->
+      <polygon points="220,128 290,150 220,172 150,150" fill="#0c1826" stroke="#264260" stroke-width="1"/>
+      <text x="220" y="147" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8baec8">fasting test</text>
+      <text x="220" y="160" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8baec8">AND NOT prep</text>
+      <text x="220" y="173" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8baec8">confirmed?</text>
+
+      <!-- Yes path -->
+      <line x1="220" y1="172" x2="220" y2="200" stroke="#8a2020" stroke-width="1.2" marker-end="url(#arr3)"/>
+      <text x="230" y="192" font-family="'JetBrains Mono',monospace" font-size="9" fill="#ff5c5c">YES</text>
+
+      <!-- instruction_node -->
+      <rect x="140" y="202" width="160" height="52" rx="8" fill="#1f0808" stroke="#8a2020" stroke-width="1.5"/>
+      <text x="220" y="222" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="12" fill="#ff5c5c" font-weight="500">instruction_node</text>
+      <text x="220" y="238" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#7a2020">explain prep + ask</text>
+      <text x="220" y="252" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#7a2020">for confirmation</text>
+
+      <!-- Patient reply: no -->
+      <path d="M140 228 Q60 228 60 280 Q60 310 140 310 Q180 310 180 280" fill="none" stroke="#5a1010" stroke-width="1" stroke-dasharray="5 2" marker-end="url(#arr3)"/>
+      <text x="28" y="273" font-family="'JetBrains Mono',monospace" font-size="9" fill="#7a2020">patient doesn't</text>
+      <text x="30" y="286" font-family="'JetBrains Mono',monospace" font-size="9" fill="#7a2020">confirm — loop</text>
+
+      <!-- Patient reply: yes -->
+      <line x1="300" y1="228" x2="390" y2="228" stroke="#007a5e" stroke-width="1.2" marker-end="url(#arr3)"/>
+      <text x="325" y="222" font-family="'JetBrains Mono',monospace" font-size="9" fill="#00d4aa">confirmed ✓</text>
+
+      <!-- Set flag -->
+      <rect x="392" y="204" width="168" height="48" rx="8" fill="#001f19" stroke="#007a5e" stroke-width="1"/>
+      <text x="476" y="224" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="12" fill="#00d4aa" font-weight="500">set flag</text>
+      <text x="476" y="240" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#007a5e">prep_confirmed = True</text>
+      <line x1="560" y1="228" x2="590" y2="228" stroke="#007a5e" stroke-width="1.2" marker-end="url(#arr3)"/>
+
+      <!-- No path (direct) -->
+      <line x1="290" y1="150" x2="590" y2="150" stroke="#007a5e" stroke-width="1" marker-end="url(#arr3)"/>
+      <text x="410" y="144" font-family="'JetBrains Mono',monospace" font-size="9" fill="#007a5e">NO (no prep needed)</text>
+
+      <!-- booking_node -->
+      <rect x="592" y="128" width="160" height="112" rx="8" fill="#001f19" stroke="#007a5e" stroke-width="1.5"/>
+      <text x="672" y="152" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="12" fill="#00d4aa" font-weight="500">booking_node</text>
+      <text x="672" y="170" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#007a5e">write to SQLite</text>
+      <text x="672" y="186" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#007a5e">generate invoice</text>
+      <text x="672" y="206" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="11" fill="#007a5e" font-style="italic">only reachable when</text>
+      <text x="672" y="222" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#007a5e">prep_confirmed=True</text>
+      <text x="672" y="238" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#007a5e">or no prep needed</text>
+    </svg>
+  </div>
+
+  <h3>Why this is enforced at the edge level</h3>
+  <p>A naive implementation might add a check inside <code>booking_node</code> or write a system prompt instruction like "never book until prep is confirmed". Both approaches can be circumvented — the former by routing bugs, the latter by prompt injection.</p>
+  <p>DiagBot instead enforces the invariant in <code>route_from_intake()</code>, which is a <strong>pure Python function</strong> that reads the typed state. No LLM is involved in this decision. The LangGraph runtime calls this function and <em>cannot proceed to <code>booking_node</code></em> unless the function returns <code>"booking_node"</code>. This makes the safety guarantee as strong as the Python interpreter itself.</p>
+</section>
+
+<!-- ─── AGENTIC REASONING ─── -->
+<section id="agentic-reasoning">
+  <h2>Agentic reasoning</h2>
+  <p>DiagBot's intelligence emerges from six interlocking agentic patterns — not from a single large prompt.</p>
+
+  <h3>1. Two-tier intent classification</h3>
+  <p>The <code>intake_node</code> applies fast keyword heuristics first (covering ~90% of Bangladeshi diagnostic queries in English and Bangla). Only when the heuristic returns no clear signal is a lightweight LLM call made — with a strict <code>max_tokens=10</code> constraint that forces a single-word response. This keeps median latency low while handling edge cases gracefully.</p>
+
+  <h3>2. Retrieval-augmented generation</h3>
+  <p>The LLM never hard-codes test information. Every price, preparation instruction, and turnaround time is retrieved from ChromaDB at query time. The ONNX embedding model handles bilingual queries — "sugar test", "ব্লাড সুগার", and "fasting glucose" all resolve to the correct test entries via cosine similarity.</p>
+
+  <h3>3. The preparation safety invariant</h3>
+  <p>The <code>prep_confirmed</code> boolean is a state machine invariant enforced by a routing function. See <a href="#safety-loop">the safety loop section</a> for details.</p>
+
+  <h3>4. Progressive state accumulation</h3>
+  <p>LangGraph's <code>add_messages</code> reducer means the agent accumulates context across turns without any "memory" abstraction. Patient name, phone, test selections, and invoice IDs persist in <code>DiagBotState</code> and are available to every subsequent node. The agent never asks for information it already has.</p>
+
+  <h3>5. Autonomous tool invocation</h3>
+  <p>All three tools are bound to the LLM via <code>.bind_tools()</code>. The model decides autonomously when to call a tool, what arguments to extract from the conversation, and how to synthesise the result into a natural reply. For example, the agent will extract a catalog ID from a previous <code>search_diagnostic_tests</code> result and pass it directly to <code>book_appointment</code> — without being instructed to do so.</p>
+
+  <h3>6. Graceful degradation</h3>
+  <p>All tool implementations catch exceptions internally and return formatted error strings rather than raising. The LLM receives these as tool results and composes a recovery message. The graph never crashes — it always produces an output to the patient.</p>
+</section>
+
+<!-- ─── RAG ─── -->
+<section id="rag">
+  <h2>RAG pipeline</h2>
+  <p>The Retrieval-Augmented Generation pipeline runs entirely locally with no external embedding API.</p>
+
+  <div class="code-label">RAG pipeline sequence</div>
+  <pre><code class="language-text">Patient query → ChromaDB ONNX encoder → query vector
+             → cosine similarity against 12 document vectors
+             → top-k results filtered by relevance > 0.25
+             → formatted markdown string returned to LLM
+             → LLM synthesises natural-language response</code></pre>
+
+  <h3>Embedding strategy</h3>
+  <p>Each test entry is embedded as a rich 200–300 character document that includes the test name in English and Bangla, category, description, preparation instructions, and price. This multi-field document approach means a query for "চর্বি পরীক্ষা" (fat test) matches "Lipid Profile / লিপিড প্রোফাইল" because the embedding captures semantic overlap across both languages simultaneously.</p>
+
+  <h3>Extending the knowledge base</h3>
+  <div class="code-label">database.py — adding a new test</div>
+  <pre><code class="language-python">TEST_CATALOG.append({
+    "id": "d_dimer_001",
+    "name": "D-Dimer",
+    "name_bn": "ডি-ডাইমার",
+    "price_bdt": 2_200,
+    "category": "Hematology",
+    "turnaround": "4–6 hours",
+    "preparation": "No special preparation required.",
+    "requires_fasting": False,
+    "fasting_hours": 0,
+    "description": "Measures fibrin degradation products. Used to rule out DVT and PE.",
+})</code></pre>
+  <div class="callout callout-teal">
+    After adding new tests, delete <code>data/chroma_store/</code> and restart DiagBot to force re-indexing.
+  </div>
+</section>
+
+<hr/>
+
+<!-- ─── TEST CATALOG ─── -->
+<section id="test-catalog">
+  <h2>Test knowledge base</h2>
+  <p>DiagBot ships with 12 pre-loaded diagnostic tests covering the most common investigations in Bangladeshi centers.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Test</th>
+          <th>Catalog ID</th>
+          <th>Category</th>
+          <th>Price</th>
+          <th>Fasting</th>
+          <th>Turnaround</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Complete Blood Count (CBC)</strong></td>
+          <td><code>cbc_001</code></td>
+          <td><span class="tag tag-teal">Hematology</span></td>
+          <td class="price">500 ৳</td>
+          <td><span class="tag tag-no">No</span></td>
+          <td>4–6 hrs</td>
+        </tr>
+        <tr>
+          <td><strong>Lipid Profile</strong></td>
+          <td><code>lipid_001</code></td>
+          <td><span class="tag tag-amber">Biochemistry</span></td>
+          <td class="price">1,200 ৳</td>
+          <td><span class="tag tag-yes">12 hrs</span></td>
+          <td>6–8 hrs</td>
+        </tr>
+        <tr>
+          <td><strong>Random Blood Sugar (RBS)</strong></td>
+          <td><code>rbs_001</code></td>
+          <td><span class="tag tag-amber">Biochemistry</span></td>
+          <td class="price">200 ৳</td>
+          <td><span class="tag tag-no">No</span></td>
+          <td>1–2 hrs</td>
+        </tr>
+        <tr>
+          <td><strong>Fasting Blood Sugar (FBS)</strong></td>
+          <td><code>fbs_001</code></td>
+          <td><span class="tag tag-amber">Biochemistry</span></td>
+          <td class="price">250 ৳</td>
+          <td><span class="tag tag-yes">8 hrs</span></td>
+          <td>1–2 hrs</td>
+        </tr>
+        <tr>
+          <td><strong>MRI Brain 3T</strong></td>
+          <td><code>mri3t_001</code></td>
+          <td><span class="tag tag-blue">Radiology</span></td>
+          <td class="price">12,000 ৳</td>
+          <td><span class="tag tag-no">No*</span></td>
+          <td>24–48 hrs</td>
+        </tr>
+        <tr>
+          <td><strong>TSH</strong></td>
+          <td><code>tsh_001</code></td>
+          <td><span class="tag tag-purple">Endocrinology</span></td>
+          <td class="price">800 ৳</td>
+          <td><span class="tag tag-no">No</span></td>
+          <td>6–8 hrs</td>
+        </tr>
+        <tr>
+          <td><strong>HbA1c</strong></td>
+          <td><code>hba1c_001</code></td>
+          <td><span class="tag tag-amber">Biochemistry</span></td>
+          <td class="price">900 ৳</td>
+          <td><span class="tag tag-no">No</span></td>
+          <td>6–8 hrs</td>
+        </tr>
+        <tr>
+          <td><strong>Urine Routine Exam (URE)</strong></td>
+          <td><code>urine_re_001</code></td>
+          <td><span class="tag tag-teal">Microbiology</span></td>
+          <td class="price">300 ৳</td>
+          <td><span class="tag tag-no">No</span></td>
+          <td>2–4 hrs</td>
+        </tr>
+        <tr>
+          <td><strong>Liver Function Test (LFT)</strong></td>
+          <td><code>lft_001</code></td>
+          <td><span class="tag tag-amber">Biochemistry</span></td>
+          <td class="price">1,500 ৳</td>
+          <td><span class="tag tag-yes">10 hrs</span></td>
+          <td>6–8 hrs</td>
+        </tr>
+        <tr>
+          <td><strong>Serum Creatinine</strong></td>
+          <td><code>creatinine_001</code></td>
+          <td><span class="tag tag-amber">Biochemistry</span></td>
+          <td class="price">400 ৳</td>
+          <td><span class="tag tag-no">No</span></td>
+          <td>4–6 hrs</td>
+        </tr>
+        <tr>
+          <td><strong>Chest X-Ray (PA View)</strong></td>
+          <td><code>xray_chest_001</code></td>
+          <td><span class="tag tag-blue">Radiology</span></td>
+          <td class="price">600 ৳</td>
+          <td><span class="tag tag-no">No</span></td>
+          <td>1–2 hrs</td>
+        </tr>
+        <tr>
+          <td><strong>Echocardiogram (2D Echo)</strong></td>
+          <td><code>echo_001</code></td>
+          <td><span class="tag tag-blue">Cardiology</span></td>
+          <td class="price">3,500 ৳</td>
+          <td><span class="tag tag-no">No</span></td>
+          <td>Same day</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:.8rem;color:var(--text3);margin-top:-.5rem;">* MRI with contrast dye requires 4 hours fasting. Standard MRI does not.</p>
+</section>
+
+<!-- ─── CONFIGURATION ─── -->
+<section id="configuration">
+  <h2>Configuration</h2>
+  <p>All configuration is via environment variables, loaded from <code>.env</code> using <code>python-dotenv</code>.</p>
+
+  <div class="table-wrap env-table">
+    <table>
+      <thead><tr><th>Variable</th><th>Default</th><th>Required</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>GOOGLE_API_KEY</td>
+          <td>—</td>
+          <td><span class="tag tag-yes">Yes</span></td>
+          <td>Your Google AI API key. Obtain from <a href="https://makersuite.google.com/app/apikey">makersuite.google.com</a>.</td>
+        </tr>
+        <tr>
+          <td>DIAGBOT_MODEL</td>
+          <td>gemini-1.5-pro</td>
+          <td><span class="tag tag-no">No</span></td>
+          <td>Gemini model string. Must support tool use.</td>
+        </tr>
+        <tr>
+          <td>LOG_LEVEL</td>
+          <td>INFO</td>
+          <td><span class="tag tag-no">No</span></td>
+          <td>Python logging level: <code>DEBUG</code>, <code>INFO</code>, <code>WARNING</code>, <code>ERROR</code>.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Data paths</h3>
+  <p>The following paths are created automatically relative to the working directory:</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Path</th><th>Contents</th><th>Auto-created?</th></tr></thead>
+      <tbody>
+        <tr><td><code>data/diagbot.db</code></td><td>SQLite appointment database</td><td><span class="tag tag-teal">Yes</span></td></tr>
+        <tr><td><code>data/chroma_store/</code></td><td>ChromaDB vector index</td><td><span class="tag tag-teal">Yes</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ─── CLI ─── -->
+<section id="cli">
+  <h2>CLI usage</h2>
+  <p>Run <code>python main.py</code> to start an interactive session. The CLI maintains a single <code>DiagBotState</code> across the entire session — context accumulates naturally across turns.</p>
+
+  <div class="code-label">starting diagbot</div>
+  <pre><code class="language-bash">python main.py</code></pre>
+
+  <div class="code-label">example output</div>
+  <pre><code class="language-text">============================================================
+  🏥  DiagBot — Bangladeshi Diagnostic Center Assistant
+============================================================
+  Type your message and press Enter.  ('exit' to quit)
+
+You:</code></pre>
+
+  <h3>Commands</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Input</th><th>Effect</th></tr></thead>
+      <tbody>
+        <tr><td><code>exit</code> / <code>quit</code> / <code>bye</code></td><td>Graceful exit with goodbye message</td></tr>
+        <tr><td>Ctrl-C</td><td>Graceful exit</td></tr>
+        <tr><td>Empty line</td><td>Ignored — re-prompts for input</td></tr>
+        <tr><td>Any other text</td><td>Sent to the agent graph for processing</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Enabling debug logging</h3>
+  <div class="code-label">bash</div>
+  <pre><code class="language-bash">LOG_LEVEL=DEBUG python main.py</code></pre>
+  <p>Debug mode shows the classified intent, node transitions, tool call arguments, and raw tool results for every turn.</p>
+
+  <h3>Programmatic usage</h3>
+  <p>You can invoke the graph directly from your own code without using the CLI runner:</p>
+  <div class="code-label">python</div>
+  <pre><code class="language-python">import asyncio
+from langchain_core.messages import HumanMessage
+from main import build_graph, create_initial_state
+from database import init_databases
+
+async def single_turn(user_text: str) -> str:
+    init_databases()
+    app   = build_graph()
+    state = create_initial_state()
+    state["messages"].append(HumanMessage(content=user_text))
+
+    result = await app.ainvoke(state)
+
+    ai_msgs = [m for m in result["messages"] if hasattr(m, "content")
+               and m.__class__.__name__ == "AIMessage"]
+    return ai_msgs[-1].content if ai_msgs else ""
+
+response = asyncio.run(single_turn("CBC test er price koto?"))
+print(response)</code></pre>
+</section>
+
+<!-- ─── TESTING ─── -->
+<section id="testing">
+  <h2>Testing</h2>
+  <p>The test suite in <code>tests/test_diagbot.py</code> covers 15 cases across schema validation, database operations, tool validation logic, and routing functions — <strong>no Google API key is required</strong> to run the tests.</p>
+
+  <div class="code-label">run all tests</div>
+  <pre><code class="language-bash">pytest tests/ -v --asyncio-mode=auto</code></pre>
+
+  <div class="code-label">expected output</div>
+  <pre><code class="language-text">tests/test_diagbot.py::test_diagbot_state_fields                  PASSED
+tests/test_diagbot.py::test_valid_intents_set                     PASSED
+tests/test_diagbot.py::test_sqlite_init                           PASSED
+tests/test_diagbot.py::test_catalog_ids_are_unique                PASSED
+tests/test_diagbot.py::test_fasting_hours_consistency             PASSED
+tests/test_diagbot.py::test_book_appointment_invalid_phone        PASSED
+tests/test_diagbot.py::test_book_appointment_unknown_test         PASSED
+tests/test_diagbot.py::test_book_appointment_empty_name           PASSED
+tests/test_diagbot.py::test_check_report_status_not_found         PASSED
+tests/test_diagbot.py::test_check_report_status_demo_row          PASSED
+tests/test_diagbot.py::test_route_inquiry                         PASSED
+tests/test_diagbot.py::test_route_status                          PASSED
+tests/test_diagbot.py::test_route_booking_no_prep                 PASSED
+tests/test_diagbot.py::test_route_booking_prep_not_confirmed      PASSED
+tests/test_diagbot.py::test_route_booking_prep_confirmed          PASSED
+tests/test_diagbot.py::test_bd_phone_validation                   PASSED
+
+16 passed in 3.4s</code></pre>
+
+  <h3>Test categories</h3>
+  <ul>
+    <li><strong>Schema tests</strong> — verify all <code>TypedDict</code> fields and intent constants are defined</li>
+    <li><strong>Database tests</strong> — verify SQLite creation, demo seeding, and catalog integrity</li>
+    <li><strong>Tool tests</strong> — verify all validation paths in booking and status tools</li>
+    <li><strong>Routing tests</strong> — verify all 6 conditional edge paths without any LLM call</li>
+    <li><strong>Phone validation</strong> — verify Bangladeshi mobile number regex (valid and invalid cases)</li>
+  </ul>
+</section>
+
+<!-- ─── ERROR HANDLING ─── -->
+<section id="errors">
+  <h2>Error handling</h2>
+  <p>DiagBot follows a <em>no-crash guarantee</em> — every error surface is caught and returned as a formatted string that the LLM can synthesise into a patient-friendly message.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Scenario</th><th>Handler</th><th>Patient-visible message</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Invalid phone number</td>
+          <td><code>book_appointment</code> tool</td>
+          <td>❌ Please provide an 11-digit Bangladeshi mobile number starting with 01</td>
+        </tr>
+        <tr>
+          <td>Unknown catalog ID</td>
+          <td><code>book_appointment</code> tool</td>
+          <td>❌ Unknown test ID(s): xyz. Use search to find valid IDs.</td>
+        </tr>
+        <tr>
+          <td>Invoice not found</td>
+          <td><code>check_report_status</code> tool</td>
+          <td>❌ Invoice ID not found. Please double-check the ID on your slip.</td>
+        </tr>
+        <tr>
+          <td>SQLite write failure</td>
+          <td><code>book_appointment</code> tool</td>
+          <td>❌ Booking failed (database error): [message]</td>
+        </tr>
+        <tr>
+          <td>ChromaDB unavailable</td>
+          <td><code>search_diagnostic_tests</code> tool</td>
+          <td>❌ Search error: [message]</td>
+        </tr>
+        <tr>
+          <td>Graph invocation error</td>
+          <td>CLI runner <code>try/except</code></td>
+          <td>❌ An unexpected error occurred: [message]</td>
+        </tr>
+        <tr>
+          <td>Low-relevance search results</td>
+          <td><code>search_diagnostic_tests</code> — relevance filter</td>
+          <td>ℹ️  No closely related tests found. Please try rephrasing.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ─── ROADMAP ─── -->
+<section id="roadmap">
+  <h2>Roadmap</h2>
+
+  <h3>Near-term (v1.1)</h3>
+  <ul>
+    <li>FastAPI REST endpoint with per-session state management</li>
+    <li>LangSmith tracing integration for production observability</li>
+    <li>LangGraph checkpointing for conversation persistence across process restarts</li>
+    <li>Full Bangla NLU pipeline using a Bangla-tuned embedding model</li>
+  </ul>
+
+  <h3>Medium-term (v1.2)</h3>
+  <ul>
+    <li>WhatsApp bot integration via Twilio — meet patients where they are</li>
+    <li>Home sample collection booking with address capture and slot management</li>
+    <li>Insurance / panel pricing tiers for corporate patients</li>
+    <li>Prescription PDF parsing for test recommendations</li>
+  </ul>
+
+  <h3>Long-term (v2.0)</h3>
+  <ul>
+    <li>Multi-centre support with per-centre price catalogs and availability</li>
+    <li>Real-time report delivery via push notification when status changes to "Ready"</li>
+    <li>React-based patient portal web UI</li>
+    <li>Lab instrument LIMS API integration for live status updates</li>
+  </ul>
+
+  <div class="footer">
+    <p>DiagBot Developer Documentation — Built with LangGraph &amp; Claude Sonnet 4</p>
+    <p style="margin-top:.35rem;font-size:.75rem;">MIT License · Contributions welcome</p>
+  </div>
+</section>
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script>
+// Active nav link on scroll
+const sections = document.querySelectorAll('[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      navLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
+      if(active) active.classList.add('active');
+    }
+  });
+},{threshold:0.3,rootMargin:'-10% 0px -70% 0px'});
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
